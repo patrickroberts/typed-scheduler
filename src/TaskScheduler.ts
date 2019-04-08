@@ -34,7 +34,7 @@ const validatePriority = (priorities: number) => validator(
   'priority',
   assertType('number'),
   assertInteger,
-  assertMin(1),
+  assertMin(0),
   assertMax(priorities, false)
 )
 
