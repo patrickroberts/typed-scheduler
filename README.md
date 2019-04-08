@@ -16,11 +16,11 @@ $ npm i --save typed-scheduler
 ## Usage
 
 ```ts
-import TaskScheduler from 'typed-scheduler'
+import Scheduler from 'typed-scheduler'
 
 // rate limit to 2 messages every second
 // defaults to 3 priority classes
-const scheduler = new TaskScheduler(2, 1000, 1)
+const scheduler = new Scheduler(2, 1000, 1)
 
 // queue 120 messages synchronously
 // scheduler will throttle to 2 messages / second
@@ -38,13 +38,13 @@ The output of this program demonstrates when each of these methods resolves.
 
 ```ts
 import { performance } from 'perf_hooks'
-import TaskScheduler from 'typed-scheduler'
+import Scheduler from 'typed-scheduler'
 
 const print = (...args) =>
   console.log(`${
     (performance.now() / 1000).toFixed(3)
   }s`, ...args)
-const s = new TaskScheduler(1, 1000, 3)
+const s = new Scheduler(1, 1000, 3)
 
 for (let i = 0; i < 3; i++) {
   for (let j = 0; j < 3; j++) {
@@ -88,9 +88,9 @@ Note that the following schedulers do not behave identically.
 
 ```ts
 // 2 tasks every second
-new TaskScheduler(2, 1000)
+new Scheduler(2, 1000)
 // 1 task every half second
-new TaskScheduler(1, 500)
+new Scheduler(1, 500)
 ```
 
 The former will execute two functions without delay, then wait a full second after either completes before executing another function.

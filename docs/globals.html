@@ -962,11 +962,11 @@ img { max-width: 100%; }
 			<h2 id="installing">Installing</h2>
 			<pre><code class="language-sh">$ npm i --save typed-scheduler</code></pre>
 			<h2 id="usage">Usage</h2>
-			<pre><code class="language-ts"><span class="hljs-keyword">import</span> TaskScheduler <span class="hljs-keyword">from</span> <span class="hljs-string">'typed-scheduler'</span>
+			<pre><code class="language-ts"><span class="hljs-keyword">import</span> Scheduler <span class="hljs-keyword">from</span> <span class="hljs-string">'typed-scheduler'</span>
 
 <span class="hljs-comment">// rate limit to 2 messages every second</span>
 <span class="hljs-comment">// defaults to 3 priority classes</span>
-<span class="hljs-keyword">const</span> scheduler = <span class="hljs-keyword">new</span> TaskScheduler(<span class="hljs-number">2</span>, <span class="hljs-number">1000</span>, <span class="hljs-number">1</span>)
+<span class="hljs-keyword">const</span> scheduler = <span class="hljs-keyword">new</span> Scheduler(<span class="hljs-number">2</span>, <span class="hljs-number">1000</span>, <span class="hljs-number">1</span>)
 
 <span class="hljs-comment">// queue 120 messages synchronously</span>
 <span class="hljs-comment">// scheduler will throttle to 2 messages / second</span>
@@ -979,13 +979,13 @@ img { max-width: 100%; }
 			<h3 id="ready-and-idle-"><code>ready()</code> and <code>idle()</code></h3>
 			<p>The output of this program demonstrates when each of these methods resolves.</p>
 			<pre><code class="language-ts"><span class="hljs-keyword">import</span> { performance } <span class="hljs-keyword">from</span> <span class="hljs-string">'perf_hooks'</span>
-<span class="hljs-keyword">import</span> TaskScheduler <span class="hljs-keyword">from</span> <span class="hljs-string">'typed-scheduler'</span>
+<span class="hljs-keyword">import</span> Scheduler <span class="hljs-keyword">from</span> <span class="hljs-string">'typed-scheduler'</span>
 
 <span class="hljs-keyword">const</span> print = <span class="hljs-function">(<span class="hljs-params">...args</span>) =&gt;</span>
   <span class="hljs-built_in">console</span>.log(<span class="hljs-string">`<span class="hljs-subst">${
     (performance.now() / 1000).toFixed(3)
   }</span>s`</span>, ...args)
-<span class="hljs-keyword">const</span> s = <span class="hljs-keyword">new</span> TaskScheduler(<span class="hljs-number">1</span>, <span class="hljs-number">1000</span>, <span class="hljs-number">3</span>)
+<span class="hljs-keyword">const</span> s = <span class="hljs-keyword">new</span> Scheduler(<span class="hljs-number">1</span>, <span class="hljs-number">1000</span>, <span class="hljs-number">3</span>)
 
 <span class="hljs-keyword">for</span> (<span class="hljs-keyword">let</span> i = <span class="hljs-number">0</span>; i &lt; <span class="hljs-number">3</span>; i++) {
   <span class="hljs-keyword">for</span> (<span class="hljs-keyword">let</span> j = <span class="hljs-number">0</span>; j &lt; <span class="hljs-number">3</span>; j++) {
@@ -1020,9 +1020,9 @@ s.idle().then(
 <span class="hljs-number">9.127</span>s scheduler idle</code></pre><h3 id="concurrency-and-rate">Concurrency and Rate</h3>
 			<p>Note that the following schedulers do not behave identically.</p>
 			<pre><code class="language-ts"><span class="hljs-comment">// 2 tasks every second</span>
-<span class="hljs-keyword">new</span> TaskScheduler(<span class="hljs-number">2</span>, <span class="hljs-number">1000</span>)
+<span class="hljs-keyword">new</span> Scheduler(<span class="hljs-number">2</span>, <span class="hljs-number">1000</span>)
 <span class="hljs-comment">// 1 task every half second</span>
-<span class="hljs-keyword">new</span> TaskScheduler(<span class="hljs-number">1</span>, <span class="hljs-number">500</span>)</code></pre>
+<span class="hljs-keyword">new</span> Scheduler(<span class="hljs-number">1</span>, <span class="hljs-number">500</span>)</code></pre>
 			<p>The former will execute two functions without delay, then wait a full second after either completes before executing another function.</p>
 			<p>The latter will only execute one function at a time, then wait for half a second after it completes before executing another function.</p>
 		</div>
