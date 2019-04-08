@@ -920,6 +920,34 @@ img { max-width: 100%; }
 		<div class="tsd-panel tsd-typography">
 			<h1 id="typed-scheduler">typed-scheduler</h1>
 			<p>A TaskScheduler module written in TypeScript for concurrency-limiting and rate-limiting</p>
+			<h2 id="docs-github-npm"><a href="https://patrickroberts.github.io/typed-scheduler">Docs</a> | <a href="https://github.com/patrickroberts/typed-scheduler">Github</a> | <a href="https://www.npmjs.com/package/typed-scheduler">npm</a></h2>
+			<h2 id="installing">Installing</h2>
+			<pre><code class="language-sh">$ npm i --save typed-scheduler</code></pre>
+			<h2 id="usage">Usage</h2>
+			<pre><code class="language-ts"><span class="hljs-keyword">import</span> TaskScheduler <span class="hljs-keyword">from</span> <span class="hljs-string">'typed-scheduler'</span>
+
+<span class="hljs-comment">// rate limit to 2 messages every second</span>
+<span class="hljs-comment">// defaults to 3 priority classes</span>
+<span class="hljs-keyword">const</span> scheduler = <span class="hljs-keyword">new</span> TaskScheduler(<span class="hljs-number">2</span>, <span class="hljs-number">1000</span>, <span class="hljs-number">1</span>)
+
+<span class="hljs-comment">// queue 120 messages synchronously</span>
+<span class="hljs-comment">// scheduler will throttle to 2 messages / second</span>
+<span class="hljs-keyword">for</span> (<span class="hljs-keyword">let</span> i = <span class="hljs-number">1</span>; i &lt;= <span class="hljs-number">120</span>; i++) {
+  <span class="hljs-comment">// schedule with normal priority</span>
+  scheduler.schedule(<span class="hljs-built_in">console</span>.log, <span class="hljs-number">1</span>, <span class="hljs-string">`message <span class="hljs-subst">${i}</span>`</span>)
+}</code></pre>
+			<p>The <code>schedule()</code> method will return a promise that resolves when the scheduled function is executed. If the function throws an error, the promise will reject.</p>
+			<p>If the scheduled function is asynchronous, <code>schedule()</code> will return a promise that follows its completion.</p>
+			<h3 id="priority">Priority</h3>
+			<p>The second argument to <code>schedule()</code> is the priority with which to schedule the execution of the function. The scheduler will handle queued functions in FIFO order within each priority class, and higher priorities will always be handled before lower priorities. A lower value mean a higher priority.</p>
+			<h3 id="concurrency-and-rate">Concurrency and Rate</h3>
+			<p>Note that the following schedulers do not behave identically.</p>
+			<pre><code class="language-ts"><span class="hljs-comment">// 2 tasks every second</span>
+<span class="hljs-keyword">new</span> TaskScheduler(<span class="hljs-number">2</span>, <span class="hljs-number">1000</span>)
+<span class="hljs-comment">// 1 task every half second</span>
+<span class="hljs-keyword">new</span> TaskScheduler(<span class="hljs-number">1</span>, <span class="hljs-number">500</span>)</code></pre>
+			<p>The former will execute two functions without delay, then wait a full second after either completes before executing another function.</p>
+			<p>The latter will only execute one function at a time, then wait for half a second after it completes before executing another function.</p>
 		</div>
 		<section class="tsd-panel-group tsd-index-group">
 			<h2>Index</h2>
