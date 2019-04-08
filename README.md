@@ -31,10 +31,10 @@ for (let i = 1; i <= 120; i++) {
 ```
 
 ### Priority
+The second argument of `schedule()` is used to set the priority class of the scheduled function. The scheduler will handle scheduled functions in FIFO order within each priority class, and higher priorities will always be handled before lower priorities. A lower value mean a higher priority.
 
-The second argument of [[schedule]] is used to set the priority class of the scheduled function. The scheduler will handle scheduled functions in FIFO order within each priority class, and higher priorities will always be handled before lower priorities. A lower value mean a higher priority.
-
-### [[ready]] and [[idle]]
+### `ready()` and `idle()`
+The output of this program demonstrates when each of these methods resolves.
 
 ```ts
 import { performance } from 'perf_hooks'
@@ -65,7 +65,7 @@ s.idle().then(
 )
 ```
 
-The output of the program above demonstrates when each of these methods resolves.
+Output
 
 ```
 0.111s task 0
@@ -84,7 +84,6 @@ The output of the program above demonstrates when each of these methods resolves
 ```
 
 ### Concurrency and Rate
-
 Note that the following schedulers do not behave identically.
 
 ```ts

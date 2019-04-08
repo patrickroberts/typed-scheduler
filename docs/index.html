@@ -975,8 +975,9 @@ img { max-width: 100%; }
   scheduler.schedule(<span class="hljs-built_in">console</span>.log, <span class="hljs-number">1</span>, <span class="hljs-string">`message <span class="hljs-subst">${i}</span>`</span>)
 }</code></pre>
 			<h3 id="priority">Priority</h3>
-			<p>The second argument of <a href="classes/scheduler.html#schedule">schedule</a> is used to set the priority class of the scheduled function. The scheduler will handle scheduled functions in FIFO order within each priority class, and higher priorities will always be handled before lower priorities. A lower value mean a higher priority.</p>
-			<h3 id="-a-href-classes-scheduler-html-ready-ready-a-and-a-href-classes-scheduler-html-idle-idle-a-"><a href="classes/scheduler.html#ready">ready</a> and <a href="classes/scheduler.html#idle">idle</a></h3>
+			<p>The second argument of <code>schedule()</code> is used to set the priority class of the scheduled function. The scheduler will handle scheduled functions in FIFO order within each priority class, and higher priorities will always be handled before lower priorities. A lower value mean a higher priority.</p>
+			<h3 id="ready-and-idle-"><code>ready()</code> and <code>idle()</code></h3>
+			<p>The output of this program demonstrates when each of these methods resolves.</p>
 			<pre><code class="language-ts"><span class="hljs-keyword">import</span> { performance } <span class="hljs-keyword">from</span> <span class="hljs-string">'perf_hooks'</span>
 <span class="hljs-keyword">import</span> TaskScheduler <span class="hljs-keyword">from</span> <span class="hljs-string">'typed-scheduler'</span>
 
@@ -1003,7 +1004,7 @@ img { max-width: 100%; }
 s.idle().then(
   <span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span> print(<span class="hljs-string">'scheduler idle'</span>)
 )</code></pre>
-			<p>The output of the program above demonstrates when each of these methods resolves.</p>
+			<p>Output</p>
 			<pre><code><span class="hljs-number">0.111</span>s task <span class="hljs-number">0</span>
 <span class="hljs-number">1.116</span>s task <span class="hljs-number">3</span>
 <span class="hljs-number">2.118</span>s task <span class="hljs-number">6</span>
