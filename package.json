@@ -1,7 +1,7 @@
 {
   "name": "typed-scheduler",
   "version": "0.0.0",
-  "description": "",
+  "description": "A TaskScheduler module written in TypeScript for concurrency-limiting and rate-limiting",
   "main": "dst/TaskScheduler.js",
   "repository": "github:patrickroberts/typed-scheduler",
   "scripts": {
