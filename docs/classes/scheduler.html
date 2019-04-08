@@ -3,7 +3,7 @@
 <head>
 	<meta charset="utf-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
-	<title>TaskScheduler | typed-scheduler</title>
+	<title>Scheduler | typed-scheduler</title>
 	<meta name="description" content="">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<style type="text/css">/*! normalize.css v1.1.3 | MIT License | git.io/normalize */
@@ -895,6 +895,8 @@ img { max-width: 100%; }
 							</div>
 							<input type="checkbox" id="tsd-filter-inherited" checked />
 							<label class="tsd-widget" for="tsd-filter-inherited">Inherited</label>
+							<input type="checkbox" id="tsd-filter-externals" checked />
+							<label class="tsd-widget" for="tsd-filter-externals">Externals</label>
 							<input type="checkbox" id="tsd-filter-only-exported" />
 							<label class="tsd-widget" for="tsd-filter-only-exported">Only exported</label>
 						</div>
@@ -908,57 +910,99 @@ img { max-width: 100%; }
 <nav class="tsd-navigation secondary">
 	<ul>
 		<li class="current tsd-kind-class">
-			<a href="taskscheduler.html" class="tsd-kind-icon">Task<wbr>Scheduler</a>
+			<a href="scheduler.html" class="tsd-kind-icon">Scheduler</a>
 			<ul>
 				<li class=" tsd-kind-constructor tsd-parent-kind-class">
-					<a href="taskscheduler.html#constructor" class="tsd-kind-icon">constructor</a>
+					<a href="scheduler.html#constructor" class="tsd-kind-icon">constructor</a>
 				</li>
 				<li class=" tsd-kind-property tsd-parent-kind-class tsd-is-private">
-					<a href="taskscheduler.html#_concurrency" class="tsd-kind-icon">_concurrency</a>
+					<a href="scheduler.html#_concurrency" class="tsd-kind-icon">_concurrency</a>
 				</li>
 				<li class=" tsd-kind-property tsd-parent-kind-class tsd-is-private">
-					<a href="taskscheduler.html#_rate" class="tsd-kind-icon">_rate</a>
+					<a href="scheduler.html#_rate" class="tsd-kind-icon">_rate</a>
 				</li>
 				<li class=" tsd-kind-property tsd-parent-kind-class tsd-is-private">
-					<a href="taskscheduler.html#pending" class="tsd-kind-icon">pending</a>
+					<a href="scheduler.html#pending" class="tsd-kind-icon">pending</a>
 				</li>
 				<li class=" tsd-kind-property tsd-parent-kind-class tsd-is-private">
-					<a href="taskscheduler.html#propertychanged" class="tsd-kind-icon">property<wbr>Changed</a>
+					<a href="scheduler.html#propertychanged" class="tsd-kind-icon">property<wbr>Changed</a>
 				</li>
 				<li class=" tsd-kind-property tsd-parent-kind-class tsd-is-private">
-					<a href="taskscheduler.html#queues" class="tsd-kind-icon">queues</a>
+					<a href="scheduler.html#queues" class="tsd-kind-icon">queues</a>
 				</li>
 				<li class=" tsd-kind-property tsd-parent-kind-class tsd-is-private">
-					<a href="taskscheduler.html#slotpriority" class="tsd-kind-icon">slot<wbr>Priority</a>
+					<a href="scheduler.html#slotpriority" class="tsd-kind-icon">slot<wbr>Priority</a>
 				</li>
 				<li class=" tsd-kind-accessor tsd-parent-kind-class">
-					<a href="taskscheduler.html#concurrency" class="tsd-kind-icon">concurrency</a>
+					<a href="scheduler.html#concurrency" class="tsd-kind-icon">concurrency</a>
 				</li>
 				<li class=" tsd-kind-accessor tsd-parent-kind-class">
-					<a href="taskscheduler.html#priorities" class="tsd-kind-icon">priorities</a>
+					<a href="scheduler.html#priorities" class="tsd-kind-icon">priorities</a>
 				</li>
 				<li class=" tsd-kind-accessor tsd-parent-kind-class">
-					<a href="taskscheduler.html#rate" class="tsd-kind-icon">rate</a>
+					<a href="scheduler.html#rate" class="tsd-kind-icon">rate</a>
 				</li>
 				<li class=" tsd-kind-method tsd-parent-kind-class tsd-is-private">
-					<a href="taskscheduler.html#concurrencylimit" class="tsd-kind-icon">concurrency<wbr>Limit</a>
+					<a href="scheduler.html#concurrencylimit" class="tsd-kind-icon">concurrency<wbr>Limit</a>
 				</li>
 				<li class=" tsd-kind-method tsd-parent-kind-class tsd-has-type-parameter tsd-is-protected">
-					<a href="taskscheduler.html#execute" class="tsd-kind-icon">execute</a>
+					<a href="scheduler.html#execute" class="tsd-kind-icon">execute</a>
+				</li>
+				<li class=" tsd-kind-method tsd-parent-kind-class">
+					<a href="scheduler.html#idle" class="tsd-kind-icon">idle</a>
 				</li>
 				<li class=" tsd-kind-method tsd-parent-kind-class tsd-is-private">
-					<a href="taskscheduler.html#onprioritieschanged" class="tsd-kind-icon">on<wbr>Priorities<wbr>Changed</a>
+					<a href="scheduler.html#onprioritieschanged" class="tsd-kind-icon">on<wbr>Priorities<wbr>Changed</a>
 				</li>
 				<li class=" tsd-kind-method tsd-parent-kind-class tsd-is-private">
-					<a href="taskscheduler.html#ratelimit" class="tsd-kind-icon">rate<wbr>Limit</a>
+					<a href="scheduler.html#ratelimit" class="tsd-kind-icon">rate<wbr>Limit</a>
+				</li>
+				<li class=" tsd-kind-method tsd-parent-kind-class">
+					<a href="scheduler.html#ready" class="tsd-kind-icon">ready</a>
 				</li>
 				<li class=" tsd-kind-method tsd-parent-kind-class tsd-has-type-parameter">
-					<a href="taskscheduler.html#schedule" class="tsd-kind-icon">schedule</a>
+					<a href="scheduler.html#schedule" class="tsd-kind-icon">schedule</a>
 				</li>
 			</ul>
 		</li>
-		<li class=" tsd-kind-type-alias tsd-has-type-parameter">
+		<li class=" tsd-kind-type-alias tsd-has-type-parameter tsd-is-external tsd-is-not-exported">
+			<a href="../globals.html#assertion" class="tsd-kind-icon">Assertion</a>
+		</li>
+		<li class=" tsd-kind-type-alias tsd-is-external tsd-is-not-exported">
+			<a href="../globals.html#cancelable" class="tsd-kind-icon">Cancelable</a>
+		</li>
+		<li class=" tsd-kind-type-alias tsd-has-type-parameter tsd-is-not-exported">
 			<a href="../globals.html#task" class="tsd-kind-icon">Task</a>
+		</li>
+		<li class=" tsd-kind-type-alias tsd-is-external tsd-is-not-exported">
+			<a href="../globals.html#typeof" class="tsd-kind-icon">Typeof</a>
+		</li>
+		<li class=" tsd-kind-function tsd-is-external">
+			<a href="../globals.html#assertarity" class="tsd-kind-icon">assert<wbr>Arity</a>
+		</li>
+		<li class=" tsd-kind-function tsd-is-external">
+			<a href="../globals.html#assertinteger" class="tsd-kind-icon">assert<wbr>Integer</a>
+		</li>
+		<li class=" tsd-kind-function tsd-is-external">
+			<a href="../globals.html#assertmax" class="tsd-kind-icon">assert<wbr>Max</a>
+		</li>
+		<li class=" tsd-kind-function tsd-is-external">
+			<a href="../globals.html#assertmin" class="tsd-kind-icon">assert<wbr>Min</a>
+		</li>
+		<li class=" tsd-kind-function tsd-has-type-parameter tsd-is-external">
+			<a href="../globals.html#asserttype" class="tsd-kind-icon">assert<wbr>Type</a>
+		</li>
+		<li class=" tsd-kind-function tsd-is-external">
+			<a href="../globals.html#delay" class="tsd-kind-icon">delay</a>
+		</li>
+		<li class=" tsd-kind-function tsd-is-external">
+			<a href="../globals.html#on" class="tsd-kind-icon">on</a>
+		</li>
+		<li class=" tsd-kind-function tsd-is-external">
+			<a href="../globals.html#race" class="tsd-kind-icon">race</a>
+		</li>
+		<li class=" tsd-kind-function tsd-has-type-parameter tsd-is-external">
+			<a href="../globals.html#validator" class="tsd-kind-icon">validator</a>
 		</li>
 	</ul>
 </nav>
@@ -968,7 +1012,7 @@ img { max-width: 100%; }
 			<h3>Hierarchy</h3>
 			<ul class="tsd-hierarchy">
 				<li>
-					<span class="target">TaskScheduler</span>
+					<span class="target">Scheduler</span>
 				</li>
 			</ul>
 		</section>
@@ -979,36 +1023,38 @@ img { max-width: 100%; }
 					<section class="tsd-index-section ">
 						<h3>Constructors</h3>
 						<ul class="tsd-index-list">
-							<li class="tsd-kind-constructor tsd-parent-kind-class"><a href="taskscheduler.html#constructor" class="tsd-kind-icon">constructor</a></li>
+							<li class="tsd-kind-constructor tsd-parent-kind-class"><a href="scheduler.html#constructor" class="tsd-kind-icon">constructor</a></li>
 						</ul>
 					</section>
 					<section class="tsd-index-section tsd-is-private tsd-is-private-protected">
 						<h3>Properties</h3>
 						<ul class="tsd-index-list">
-							<li class="tsd-kind-property tsd-parent-kind-class tsd-is-private"><a href="taskscheduler.html#_concurrency" class="tsd-kind-icon">_concurrency</a></li>
-							<li class="tsd-kind-property tsd-parent-kind-class tsd-is-private"><a href="taskscheduler.html#_rate" class="tsd-kind-icon">_rate</a></li>
-							<li class="tsd-kind-property tsd-parent-kind-class tsd-is-private"><a href="taskscheduler.html#pending" class="tsd-kind-icon">pending</a></li>
-							<li class="tsd-kind-property tsd-parent-kind-class tsd-is-private"><a href="taskscheduler.html#propertychanged" class="tsd-kind-icon">property<wbr>Changed</a></li>
-							<li class="tsd-kind-property tsd-parent-kind-class tsd-is-private"><a href="taskscheduler.html#queues" class="tsd-kind-icon">queues</a></li>
-							<li class="tsd-kind-property tsd-parent-kind-class tsd-is-private"><a href="taskscheduler.html#slotpriority" class="tsd-kind-icon">slot<wbr>Priority</a></li>
+							<li class="tsd-kind-property tsd-parent-kind-class tsd-is-private"><a href="scheduler.html#_concurrency" class="tsd-kind-icon">_concurrency</a></li>
+							<li class="tsd-kind-property tsd-parent-kind-class tsd-is-private"><a href="scheduler.html#_rate" class="tsd-kind-icon">_rate</a></li>
+							<li class="tsd-kind-property tsd-parent-kind-class tsd-is-private"><a href="scheduler.html#pending" class="tsd-kind-icon">pending</a></li>
+							<li class="tsd-kind-property tsd-parent-kind-class tsd-is-private"><a href="scheduler.html#propertychanged" class="tsd-kind-icon">property<wbr>Changed</a></li>
+							<li class="tsd-kind-property tsd-parent-kind-class tsd-is-private"><a href="scheduler.html#queues" class="tsd-kind-icon">queues</a></li>
+							<li class="tsd-kind-property tsd-parent-kind-class tsd-is-private"><a href="scheduler.html#slotpriority" class="tsd-kind-icon">slot<wbr>Priority</a></li>
 						</ul>
 					</section>
 					<section class="tsd-index-section ">
 						<h3>Accessors</h3>
 						<ul class="tsd-index-list">
-							<li class="tsd-kind-accessor tsd-parent-kind-class"><a href="taskscheduler.html#concurrency" class="tsd-kind-icon">concurrency</a></li>
-							<li class="tsd-kind-accessor tsd-parent-kind-class"><a href="taskscheduler.html#priorities" class="tsd-kind-icon">priorities</a></li>
-							<li class="tsd-kind-accessor tsd-parent-kind-class"><a href="taskscheduler.html#rate" class="tsd-kind-icon">rate</a></li>
+							<li class="tsd-kind-accessor tsd-parent-kind-class"><a href="scheduler.html#concurrency" class="tsd-kind-icon">concurrency</a></li>
+							<li class="tsd-kind-accessor tsd-parent-kind-class"><a href="scheduler.html#priorities" class="tsd-kind-icon">priorities</a></li>
+							<li class="tsd-kind-accessor tsd-parent-kind-class"><a href="scheduler.html#rate" class="tsd-kind-icon">rate</a></li>
 						</ul>
 					</section>
 					<section class="tsd-index-section ">
 						<h3>Methods</h3>
 						<ul class="tsd-index-list">
-							<li class="tsd-kind-method tsd-parent-kind-class tsd-is-private"><a href="taskscheduler.html#concurrencylimit" class="tsd-kind-icon">concurrency<wbr>Limit</a></li>
-							<li class="tsd-kind-method tsd-parent-kind-class tsd-has-type-parameter tsd-is-protected"><a href="taskscheduler.html#execute" class="tsd-kind-icon">execute</a></li>
-							<li class="tsd-kind-method tsd-parent-kind-class tsd-is-private"><a href="taskscheduler.html#onprioritieschanged" class="tsd-kind-icon">on<wbr>Priorities<wbr>Changed</a></li>
-							<li class="tsd-kind-method tsd-parent-kind-class tsd-is-private"><a href="taskscheduler.html#ratelimit" class="tsd-kind-icon">rate<wbr>Limit</a></li>
-							<li class="tsd-kind-method tsd-parent-kind-class tsd-has-type-parameter"><a href="taskscheduler.html#schedule" class="tsd-kind-icon">schedule</a></li>
+							<li class="tsd-kind-method tsd-parent-kind-class tsd-is-private"><a href="scheduler.html#concurrencylimit" class="tsd-kind-icon">concurrency<wbr>Limit</a></li>
+							<li class="tsd-kind-method tsd-parent-kind-class tsd-has-type-parameter tsd-is-protected"><a href="scheduler.html#execute" class="tsd-kind-icon">execute</a></li>
+							<li class="tsd-kind-method tsd-parent-kind-class"><a href="scheduler.html#idle" class="tsd-kind-icon">idle</a></li>
+							<li class="tsd-kind-method tsd-parent-kind-class tsd-is-private"><a href="scheduler.html#onprioritieschanged" class="tsd-kind-icon">on<wbr>Priorities<wbr>Changed</a></li>
+							<li class="tsd-kind-method tsd-parent-kind-class tsd-is-private"><a href="scheduler.html#ratelimit" class="tsd-kind-icon">rate<wbr>Limit</a></li>
+							<li class="tsd-kind-method tsd-parent-kind-class"><a href="scheduler.html#ready" class="tsd-kind-icon">ready</a></li>
+							<li class="tsd-kind-method tsd-parent-kind-class tsd-has-type-parameter"><a href="scheduler.html#schedule" class="tsd-kind-icon">schedule</a></li>
 						</ul>
 					</section>
 				</div>
@@ -1020,13 +1066,13 @@ img { max-width: 100%; }
 				<a name="constructor" class="tsd-anchor"></a>
 				<h3>constructor</h3>
 				<ul class="tsd-signatures tsd-kind-constructor tsd-parent-kind-class">
-					<li class="tsd-signature tsd-kind-icon">new <wbr>Task<wbr>Scheduler<span class="tsd-signature-symbol">(</span>concurrency<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">number</span>, rate<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">number</span>, priorities<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">number</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="taskscheduler.html" class="tsd-signature-type">TaskScheduler</a></li>
+					<li class="tsd-signature tsd-kind-icon">new <wbr>Scheduler<span class="tsd-signature-symbol">(</span>concurrency<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">number</span>, rate<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">number</span>, priorities<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">number</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="scheduler.html" class="tsd-signature-type">Scheduler</a></li>
 				</ul>
 				<ul class="tsd-descriptions">
 					<li class="tsd-description">
 						<aside class="tsd-sources">
 							<ul>
-								<li>Defined in <a href="https://github.com/patrickroberts/typed-scheduler/tree/master/src/TaskScheduler.ts#L49">TaskScheduler.ts:49</a></li>
+								<li>Defined in <a href="https://github.com/patrickroberts/typed-scheduler/tree/master/src/scheduler.ts#L58">scheduler.ts:58</a></li>
 							</ul>
 						</aside>
 						<h4 class="tsd-parameters-title">Parameters</h4>
@@ -1041,7 +1087,7 @@ img { max-width: 100%; }
 								<h5><span class="tsd-flag ts-flagDefault value">Default value</span> priorities: <span class="tsd-signature-type">number</span><span class="tsd-signature-symbol"> =&nbsp;3</span></h5>
 							</li>
 						</ul>
-						<h4 class="tsd-returns-title">Returns <a href="taskscheduler.html" class="tsd-signature-type">TaskScheduler</a></h4>
+						<h4 class="tsd-returns-title">Returns <a href="scheduler.html" class="tsd-signature-type">Scheduler</a></h4>
 					</li>
 				</ul>
 			</section>
@@ -1054,7 +1100,7 @@ img { max-width: 100%; }
 				<div class="tsd-signature tsd-kind-icon">_concurrency<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">number</span></div>
 				<aside class="tsd-sources">
 					<ul>
-						<li>Defined in <a href="https://github.com/patrickroberts/typed-scheduler/tree/master/src/TaskScheduler.ts#L44">TaskScheduler.ts:44</a></li>
+						<li>Defined in <a href="https://github.com/patrickroberts/typed-scheduler/tree/master/src/scheduler.ts#L69">scheduler.ts:69</a></li>
 					</ul>
 				</aside>
 			</section>
@@ -1064,7 +1110,7 @@ img { max-width: 100%; }
 				<div class="tsd-signature tsd-kind-icon">_rate<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">number</span></div>
 				<aside class="tsd-sources">
 					<ul>
-						<li>Defined in <a href="https://github.com/patrickroberts/typed-scheduler/tree/master/src/TaskScheduler.ts#L45">TaskScheduler.ts:45</a></li>
+						<li>Defined in <a href="https://github.com/patrickroberts/typed-scheduler/tree/master/src/scheduler.ts#L70">scheduler.ts:70</a></li>
 					</ul>
 				</aside>
 			</section>
@@ -1074,17 +1120,17 @@ img { max-width: 100%; }
 				<div class="tsd-signature tsd-kind-icon">pending<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">Set</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">void</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol"> =&nbsp;new Set()</span></div>
 				<aside class="tsd-sources">
 					<ul>
-						<li>Defined in <a href="https://github.com/patrickroberts/typed-scheduler/tree/master/src/TaskScheduler.ts#L47">TaskScheduler.ts:47</a></li>
+						<li>Defined in <a href="https://github.com/patrickroberts/typed-scheduler/tree/master/src/scheduler.ts#L72">scheduler.ts:72</a></li>
 					</ul>
 				</aside>
 			</section>
 			<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class tsd-is-private">
 				<a name="propertychanged" class="tsd-anchor"></a>
 				<h3><span class="tsd-flag ts-flagPrivate">Private</span> property<wbr>Changed</h3>
-				<div class="tsd-signature tsd-kind-icon">property<wbr>Changed<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">EventEmitter</span><span class="tsd-signature-symbol"> =&nbsp;new EventEmitter()</span></div>
+				<div class="tsd-signature tsd-kind-icon">property<wbr>Changed<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">EventEmitter</span><span class="tsd-signature-symbol"> =&nbsp;new EventEmitter().setMaxListeners(0)</span></div>
 				<aside class="tsd-sources">
 					<ul>
-						<li>Defined in <a href="https://github.com/patrickroberts/typed-scheduler/tree/master/src/TaskScheduler.ts#L49">TaskScheduler.ts:49</a></li>
+						<li>Defined in <a href="https://github.com/patrickroberts/typed-scheduler/tree/master/src/scheduler.ts#L74">scheduler.ts:74</a></li>
 					</ul>
 				</aside>
 			</section>
@@ -1094,7 +1140,7 @@ img { max-width: 100%; }
 				<div class="tsd-signature tsd-kind-icon">queues<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">symbol</span><span class="tsd-signature-symbol">[]</span><span class="tsd-signature-symbol">[]</span></div>
 				<aside class="tsd-sources">
 					<ul>
-						<li>Defined in <a href="https://github.com/patrickroberts/typed-scheduler/tree/master/src/TaskScheduler.ts#L46">TaskScheduler.ts:46</a></li>
+						<li>Defined in <a href="https://github.com/patrickroberts/typed-scheduler/tree/master/src/scheduler.ts#L71">scheduler.ts:71</a></li>
 					</ul>
 				</aside>
 			</section>
@@ -1104,7 +1150,7 @@ img { max-width: 100%; }
 				<div class="tsd-signature tsd-kind-icon">slot<wbr>Priority<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">Map</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">symbol</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">number</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol"> =&nbsp;new Map()</span></div>
 				<aside class="tsd-sources">
 					<ul>
-						<li>Defined in <a href="https://github.com/patrickroberts/typed-scheduler/tree/master/src/TaskScheduler.ts#L48">TaskScheduler.ts:48</a></li>
+						<li>Defined in <a href="https://github.com/patrickroberts/typed-scheduler/tree/master/src/scheduler.ts#L73">scheduler.ts:73</a></li>
 					</ul>
 				</aside>
 			</section>
@@ -1117,8 +1163,8 @@ img { max-width: 100%; }
 				<div class="tsd-signature tsd-kind-icon">concurrency<span class="tsd-signature-symbol">:</span> </div>
 				<aside class="tsd-sources">
 					<ul>
-						<li>Defined in <a href="https://github.com/patrickroberts/typed-scheduler/tree/master/src/TaskScheduler.ts#L90">TaskScheduler.ts:90</a></li>
-						<li>Defined in <a href="https://github.com/patrickroberts/typed-scheduler/tree/master/src/TaskScheduler.ts#L94">TaskScheduler.ts:94</a></li>
+						<li>Defined in <a href="https://github.com/patrickroberts/typed-scheduler/tree/master/src/scheduler.ts#L105">scheduler.ts:105</a></li>
+						<li>Defined in <a href="https://github.com/patrickroberts/typed-scheduler/tree/master/src/scheduler.ts#L109">scheduler.ts:109</a></li>
 					</ul>
 				</aside>
 			</section>
@@ -1128,8 +1174,8 @@ img { max-width: 100%; }
 				<div class="tsd-signature tsd-kind-icon">priorities<span class="tsd-signature-symbol">:</span> </div>
 				<aside class="tsd-sources">
 					<ul>
-						<li>Defined in <a href="https://github.com/patrickroberts/typed-scheduler/tree/master/src/TaskScheduler.ts#L112">TaskScheduler.ts:112</a></li>
-						<li>Defined in <a href="https://github.com/patrickroberts/typed-scheduler/tree/master/src/TaskScheduler.ts#L116">TaskScheduler.ts:116</a></li>
+						<li>Defined in <a href="https://github.com/patrickroberts/typed-scheduler/tree/master/src/scheduler.ts#L127">scheduler.ts:127</a></li>
+						<li>Defined in <a href="https://github.com/patrickroberts/typed-scheduler/tree/master/src/scheduler.ts#L131">scheduler.ts:131</a></li>
 					</ul>
 				</aside>
 			</section>
@@ -1139,8 +1185,8 @@ img { max-width: 100%; }
 				<div class="tsd-signature tsd-kind-icon">rate<span class="tsd-signature-symbol">:</span> </div>
 				<aside class="tsd-sources">
 					<ul>
-						<li>Defined in <a href="https://github.com/patrickroberts/typed-scheduler/tree/master/src/TaskScheduler.ts#L101">TaskScheduler.ts:101</a></li>
-						<li>Defined in <a href="https://github.com/patrickroberts/typed-scheduler/tree/master/src/TaskScheduler.ts#L105">TaskScheduler.ts:105</a></li>
+						<li>Defined in <a href="https://github.com/patrickroberts/typed-scheduler/tree/master/src/scheduler.ts#L116">scheduler.ts:116</a></li>
+						<li>Defined in <a href="https://github.com/patrickroberts/typed-scheduler/tree/master/src/scheduler.ts#L120">scheduler.ts:120</a></li>
 					</ul>
 				</aside>
 			</section>
@@ -1157,7 +1203,7 @@ img { max-width: 100%; }
 					<li class="tsd-description">
 						<aside class="tsd-sources">
 							<ul>
-								<li>Defined in <a href="https://github.com/patrickroberts/typed-scheduler/tree/master/src/TaskScheduler.ts#L161">TaskScheduler.ts:161</a></li>
+								<li>Defined in <a href="https://github.com/patrickroberts/typed-scheduler/tree/master/src/scheduler.ts#L215">scheduler.ts:215</a></li>
 							</ul>
 						</aside>
 						<h4 class="tsd-parameters-title">Parameters</h4>
@@ -1174,13 +1220,13 @@ img { max-width: 100%; }
 				<a name="execute" class="tsd-anchor"></a>
 				<h3><span class="tsd-flag ts-flagProtected">Protected</span> execute</h3>
 				<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class tsd-has-type-parameter tsd-is-protected">
-					<li class="tsd-signature tsd-kind-icon">execute&lt;T, P&gt;<span class="tsd-signature-symbol">(</span>fn<span class="tsd-signature-symbol">: </span><a href="../globals.html#task" class="tsd-signature-type">Task</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">T</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">P</span><span class="tsd-signature-symbol">&gt;</span>, <span class="tsd-signature-symbol">...</span>params<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">P</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">T</span><span class="tsd-signature-symbol">&gt;</span></li>
+					<li class="tsd-signature tsd-kind-icon">execute&lt;T, P&gt;<span class="tsd-signature-symbol">(</span>fn<span class="tsd-signature-symbol">: </span><a href="../globals.html#task" class="tsd-signature-type">Task</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">T</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">P</span><span class="tsd-signature-symbol">&gt;</span>, params<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">P</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">T</span><span class="tsd-signature-symbol">&gt;</span></li>
 				</ul>
 				<ul class="tsd-descriptions">
 					<li class="tsd-description">
 						<aside class="tsd-sources">
 							<ul>
-								<li>Defined in <a href="https://github.com/patrickroberts/typed-scheduler/tree/master/src/TaskScheduler.ts#L179">TaskScheduler.ts:179</a></li>
+								<li>Defined in <a href="https://github.com/patrickroberts/typed-scheduler/tree/master/src/scheduler.ts#L237">scheduler.ts:237</a></li>
 							</ul>
 						</aside>
 						<h4 class="tsd-type-parameters-title">Type parameters</h4>
@@ -1198,10 +1244,32 @@ img { max-width: 100%; }
 								<h5>fn: <a href="../globals.html#task" class="tsd-signature-type">Task</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">T</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">P</span><span class="tsd-signature-symbol">&gt;</span></h5>
 							</li>
 							<li>
-								<h5><span class="tsd-flag ts-flagRest">Rest</span> <span class="tsd-signature-symbol">...</span>params: <span class="tsd-signature-type">P</span></h5>
+								<h5>params: <span class="tsd-signature-type">P</span></h5>
 							</li>
 						</ul>
 						<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">T</span><span class="tsd-signature-symbol">&gt;</span></h4>
+					</li>
+				</ul>
+			</section>
+			<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class">
+				<a name="idle" class="tsd-anchor"></a>
+				<h3>idle</h3>
+				<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class">
+					<li class="tsd-signature tsd-kind-icon">idle<span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">void</span><span class="tsd-signature-symbol">&gt;</span></li>
+				</ul>
+				<ul class="tsd-descriptions">
+					<li class="tsd-description">
+						<aside class="tsd-sources">
+							<ul>
+								<li>Defined in <a href="https://github.com/patrickroberts/typed-scheduler/tree/master/src/scheduler.ts#L202">scheduler.ts:202</a></li>
+							</ul>
+						</aside>
+						<div class="tsd-comment tsd-typography">
+							<div class="lead">
+								<p>The <code>idle()</code> method returns a promise that resolves when all functions have completed execution and the window of time has passed to maximize the available concurrency of the scheduler.</p>
+							</div>
+						</div>
+						<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">void</span><span class="tsd-signature-symbol">&gt;</span></h4>
 					</li>
 				</ul>
 			</section>
@@ -1215,7 +1283,7 @@ img { max-width: 100%; }
 					<li class="tsd-description">
 						<aside class="tsd-sources">
 							<ul>
-								<li>Defined in <a href="https://github.com/patrickroberts/typed-scheduler/tree/master/src/TaskScheduler.ts#L62">TaskScheduler.ts:62</a></li>
+								<li>Defined in <a href="https://github.com/patrickroberts/typed-scheduler/tree/master/src/scheduler.ts#L77">scheduler.ts:77</a></li>
 							</ul>
 						</aside>
 						<h4 class="tsd-parameters-title">Parameters</h4>
@@ -1238,9 +1306,37 @@ img { max-width: 100%; }
 					<li class="tsd-description">
 						<aside class="tsd-sources">
 							<ul>
-								<li>Defined in <a href="https://github.com/patrickroberts/typed-scheduler/tree/master/src/TaskScheduler.ts#L183">TaskScheduler.ts:183</a></li>
+								<li>Defined in <a href="https://github.com/patrickroberts/typed-scheduler/tree/master/src/scheduler.ts#L241">scheduler.ts:241</a></li>
 							</ul>
 						</aside>
+						<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">void</span><span class="tsd-signature-symbol">&gt;</span></h4>
+					</li>
+				</ul>
+			</section>
+			<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class">
+				<a name="ready" class="tsd-anchor"></a>
+				<h3>ready</h3>
+				<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class">
+					<li class="tsd-signature tsd-kind-icon">ready<span class="tsd-signature-symbol">(</span>priority<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">number</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">void</span><span class="tsd-signature-symbol">&gt;</span></li>
+				</ul>
+				<ul class="tsd-descriptions">
+					<li class="tsd-description">
+						<aside class="tsd-sources">
+							<ul>
+								<li>Defined in <a href="https://github.com/patrickroberts/typed-scheduler/tree/master/src/scheduler.ts#L185">scheduler.ts:185</a></li>
+							</ul>
+						</aside>
+						<div class="tsd-comment tsd-typography">
+							<div class="lead">
+								<p>The <code>ready()</code> method returns a promise that resolves when a function scheduled at a given priority will be executed immediately, if no other functions are scheduled with higher priorities in the same tick. If no priority is provided, the lowest priority is used by default.</p>
+							</div>
+						</div>
+						<h4 class="tsd-parameters-title">Parameters</h4>
+						<ul class="tsd-parameters">
+							<li>
+								<h5><span class="tsd-flag ts-flagDefault value">Default value</span> priority: <span class="tsd-signature-type">number</span><span class="tsd-signature-symbol"> =&nbsp;this.priorities - 1</span></h5>
+							</li>
+						</ul>
 						<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">void</span><span class="tsd-signature-symbol">&gt;</span></h4>
 					</li>
 				</ul>
@@ -1255,9 +1351,15 @@ img { max-width: 100%; }
 					<li class="tsd-description">
 						<aside class="tsd-sources">
 							<ul>
-								<li>Defined in <a href="https://github.com/patrickroberts/typed-scheduler/tree/master/src/TaskScheduler.ts#L125">TaskScheduler.ts:125</a></li>
+								<li>Defined in <a href="https://github.com/patrickroberts/typed-scheduler/tree/master/src/scheduler.ts#L144">scheduler.ts:144</a></li>
 							</ul>
 						</aside>
+						<div class="tsd-comment tsd-typography">
+							<div class="lead">
+								<p>The <code>schedule()</code> method will return a promise that resolves when the scheduled function is executed. If the function throws an error, the promise will reject.
+								If the scheduled function is asynchronous, <code>schedule()</code> will return a promise that follows its completion.</p>
+							</div>
+						</div>
 						<h4 class="tsd-type-parameters-title">Type parameters</h4>
 						<ul class="tsd-type-parameters">
 							<li>

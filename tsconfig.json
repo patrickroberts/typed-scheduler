@@ -2,8 +2,7 @@
   "compilerOptions": {
     "target": "es2017",
     "module": "umd",
-    "lib": ["es2015", "es2017", "es2018", "esnext"],
-    "jsx": "react",
+    "lib": [],
     "declaration": true,
     "outDir": "./dst",
     "rootDir": "./src",
@@ -21,14 +20,15 @@
     "moduleResolution": "node",
     "baseUrl": "./src",
     "paths": {},
+    "removeComments": true,
     "rootDirs": [],
     "typeRoots": [],
     "types": ["node"],
-    "allowSyntheticDefaultImports": true,
-    "esModuleInterop": true,
+    "allowSyntheticDefaultImports": false,
+    "esModuleInterop": false,
     "preserveSymlinks": false,
-    "experimentalDecorators": true,
-    "emitDecoratorMetadata": true
+    "experimentalDecorators": false,
+    "emitDecoratorMetadata": false
   },
   "include": ["src/**/*.ts"],
   "exclude": ["node_modules/**"]

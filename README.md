@@ -1,5 +1,5 @@
 # typed-scheduler
-A TaskScheduler module written in TypeScript for concurrency-limiting and rate-limiting
+A Scheduler written in TypeScript for concurrency-limiting and rate-limiting
 
 ## [Docs][1] | [Github][2] | [npm][3]
 
@@ -30,13 +30,58 @@ for (let i = 1; i <= 120; i++) {
 }
 ```
 
-The `schedule()` method will return a promise that resolves when the scheduled function is executed. If the function throws an error, the promise will reject.
-
-If the scheduled function is asynchronous, `schedule()` will return a promise that follows its completion.
-
 ### Priority
 
-The second argument to `schedule()` is the priority with which to schedule the execution of the function. The scheduler will handle queued functions in FIFO order within each priority class, and higher priorities will always be handled before lower priorities. A lower value mean a higher priority.
+The second argument of [[schedule]] is used to set the priority class of the scheduled function. The scheduler will handle scheduled functions in FIFO order within each priority class, and higher priorities will always be handled before lower priorities. A lower value mean a higher priority.
+
+### [[ready]] and [[idle]]
+
+```ts
+import { performance } from 'perf_hooks'
+import TaskScheduler from 'typed-scheduler'
+
+const print = (...args) =>
+  console.log(`${
+    (performance.now() / 1000).toFixed(3)
+  }s`, ...args)
+const s = new TaskScheduler(1, 1000, 3)
+
+for (let i = 0; i < 3; i++) {
+  for (let j = 0; j < 3; j++) {
+    // interleave priority classes
+    s.schedule(
+      () => print('task', i * 3 + j),
+      j
+    )
+  }
+
+  s.ready(i).then(
+    () => print(`priority ${i} ready`)
+  )
+}
+
+s.idle().then(
+  () => print('scheduler idle')
+)
+```
+
+The output of the program above demonstrates when each of these methods resolves.
+
+```
+0.111s task 0
+1.116s task 3
+2.118s task 6
+2.118s priority 0 ready
+3.120s task 1
+4.121s task 4
+5.121s task 7
+5.122s priority 1 ready
+6.122s task 2
+7.123s task 5
+8.126s task 8
+8.126s priority 2 ready
+9.127s scheduler idle
+```
 
 ### Concurrency and Rate
 

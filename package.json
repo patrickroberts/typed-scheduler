@@ -1,14 +1,14 @@
 {
   "name": "typed-scheduler",
-  "version": "0.0.2",
-  "description": "A TaskScheduler module written in TypeScript for concurrency-limiting and rate-limiting",
-  "main": "dst/TaskScheduler.js",
+  "version": "0.1.0",
+  "description": "A Scheduler written in TypeScript for concurrency-limiting and rate-limiting",
+  "main": "dst/scheduler.js",
   "repository": "github:patrickroberts/typed-scheduler",
   "scripts": {
     "compile": "rm -rf dst; tsc -p .",
     "lint": "tslint -p . --fix",
     "test": "npm run lint",
-    "docs": "rm -rf docs; typedoc src/TaskScheduler.ts",
+    "docs": "rm -rf docs; typedoc src/scheduler.ts",
     "build": "npm run compile && npm run test && npm run docs"
   },
   "keywords": [

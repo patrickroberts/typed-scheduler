@@ -1,6 +1,6 @@
 import { EventEmitter } from 'events'
 
-export type Cancelable = (resolve: () => void) => () => void
+type Cancelable = (resolve: () => void) => () => void
 
 export function delay (ms: number): Cancelable {
   return resolve => {
@@ -19,19 +19,6 @@ export function on (source: EventEmitter, name: string, cond: () => boolean = ()
 
     return () => {
       source.off(name, listener)
-    }
-  }
-}
-
-export function when (promise: Promise<any>): Cancelable {
-  return (resolve) => {
-    promise.then(
-      () => { resolve() },
-      () => { resolve() }
-    )
-
-    return () => {
-      resolve = () => { }
     }
   }
 }

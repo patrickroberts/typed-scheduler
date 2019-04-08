@@ -1,7 +1,10 @@
 import { EventEmitter } from 'events'
-import race, { delay, on, when } from './PromiseUtils'
-import validator, { assertType, assertInteger, assertMin, assertMax, assertArity } from './Validators'
+import race, { delay, on } from './utils'
+import validator, { assertType, assertInteger, assertMin, assertMax, assertArity } from './validators'
 
+/**
+ * @ignore
+ */
 const validateConcurrency = validator(
   'concurrency',
   assertType('number'),
@@ -10,12 +13,18 @@ const validateConcurrency = validator(
   assertMax(Number.MAX_SAFE_INTEGER)
 )
 
+/**
+ * @ignore
+ */
 const validateRate = validator(
   'rate',
   assertType('number'),
   assertMin(0)
 )
 
+/**
+ * @ignore
+ */
 const validatePriorities = validator(
   'priorities',
   assertType('number'),
@@ -24,12 +33,18 @@ const validatePriorities = validator(
   assertMax(2 ** 32, false)
 )
 
+/**
+ * @ignore
+ */
 const validateFn = (arity: number) => validator(
   'fn',
   assertType('function'),
   assertArity(arity)
 )
 
+/**
+ * @ignore
+ */
 const validatePriority = (priorities: number) => validator(
   'priority',
   assertType('number'),
@@ -38,16 +53,9 @@ const validatePriority = (priorities: number) => validator(
   assertMax(priorities, false)
 )
 
-export type Task<T, P extends any[]> = (...args: P) => T | Promise<T>
+type Task<T, P extends any[]> = (...args: P) => T | Promise<T>
 
-export default class TaskScheduler {
-  private _concurrency: number
-  private _rate: number
-  private queues: symbol[][]
-  private pending: Set<Promise<void>> = new Set()
-  private slotPriority: Map<symbol, number> = new Map()
-  private propertyChanged: EventEmitter = new EventEmitter()
-
+class Scheduler {
   public constructor (concurrency = Number.MAX_SAFE_INTEGER, rate = 0, priorities = 3) {
     validateConcurrency(concurrency)
     validateRate(rate)
@@ -57,6 +65,13 @@ export default class TaskScheduler {
     this._rate = rate
     this.queues = Array(priorities)
   }
+
+  private _concurrency: number
+  private _rate: number
+  private queues: symbol[][]
+  private pending: Set<Promise<void>> = new Set()
+  private slotPriority: Map<symbol, number> = new Map()
+  private propertyChanged: EventEmitter = new EventEmitter().setMaxListeners(0)
 
   // priorities setter heavily abuses exotic behavior with empty slots
   private onPrioritiesChanged (value: number): void {
@@ -122,6 +137,10 @@ export default class TaskScheduler {
 
   /* public API */
 
+  /**
+   * The `schedule()` method will return a promise that resolves when the scheduled function is executed. If the function throws an error, the promise will reject.
+   * If the scheduled function is asynchronous, `schedule()` will return a promise that follows its completion.
+   */
   public async schedule<T, P extends any[]> (fn: Task<T, P>, priority: number, ...params: P): Promise<T> {
     validateFn(params.length)(fn)
     validatePriority(this.priorities)(priority)
@@ -143,17 +162,52 @@ export default class TaskScheduler {
 
     if (this.queues[priority].length === 0) {
       delete this.queues[priority]
+      this.propertyChanged.emit('queues')
     }
 
-    const promise = this.execute(fn, ...params)
+    const promise = this.execute(fn, params)
     const task = promise
-      .catch(() => { })
+      .catch(() => {})
       .then(() => this.rateLimit())
-      .then(() => { this.pending.delete(task) })
+      .then(() => {
+        this.pending.delete(task)
+        this.propertyChanged.emit('pending')
+      })
 
     this.pending.add(task)
 
     return promise
+  }
+
+  /**
+   * The `ready()` method returns a promise that resolves when a function scheduled at a given priority will be executed immediately, if no other functions are scheduled with higher priorities in the same tick. If no priority is provided, the lowest priority is used by default.
+   */
+  public async ready (priority: number = this.priorities - 1): Promise<void> {
+    validatePriority(this.priorities)(priority)
+
+    const idle = () => this.queues
+      .slice(0, priority + 1)
+      .every(() => false)
+
+    if (!idle()) {
+      await race(
+        on(this.propertyChanged, 'queues', idle)
+      )
+    }
+  }
+
+  /**
+   * The `idle()` method returns a promise that resolves when all functions have completed execution and the window of time has passed to maximize the available concurrency of the scheduler.
+   */
+  public async idle (): Promise<void> {
+    const empty = () => this.pending.size === 0
+
+    while (this.queues.some(() => true)) {
+      await this.ready()
+      await race(
+        on(this.propertyChanged, 'pending', empty)
+      )
+    }
   }
 
   /* internal methods concurrency-limiting, executing, and rate-limiting */
@@ -162,21 +216,25 @@ export default class TaskScheduler {
     // to dynamically resolve priority class while waiting for available slot
     const { slotPriority } = this
 
+    // give precedence to higher priority tasks scheduled in the same tick
+    await Promise.resolve()
+
     for (
       let priority = slotPriority.get(slot) as number;
       this.pending.size >= this.concurrency ||
-      this.queues[priority][0] === slot ||
+      this.queues[priority][0] !== slot ||
       this.queues.slice(0, priority).some(queue => queue.length > 0);
       priority = slotPriority.get(slot) as number
     ) {
       await race(
-        when(Promise.race(this.pending)),
+        on(this.propertyChanged, 'pending'),
         on(this.propertyChanged, 'concurrency', () => this.concurrency > this.pending.size)
       )
+
     }
   }
 
-  protected async execute<T, P extends any[]> (fn: Task<T, P>, ...params: P): Promise<T> {
+  protected async execute<T, P extends any[]> (fn: Task<T, P>, params: P): Promise<T> {
     return fn(...params)
   }
 
@@ -193,3 +251,5 @@ export default class TaskScheduler {
     }
   }
 }
+
+export = Scheduler
