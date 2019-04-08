@@ -1,2 +1,6 @@
+.eslintrc.json
+.gitignore
 docs
 src
+tslint.json
+typedoc.js
