@@ -1,6 +1,7 @@
 .eslintrc.json
 .gitignore
 docs
+scripts
 src
 tslint.json
 typedoc.js
