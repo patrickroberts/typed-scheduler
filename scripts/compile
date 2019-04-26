@@ -4,4 +4,4 @@ browserify src/scheduler.ts \
   -s Scheduler > dst/scheduler.js
 uglifyjs dst/scheduler.js \
   -o dst/scheduler.min.js -c -m \
-  --source-map "base='dst'"
+  --source-map "base='dst',url='scheduler.min.js.map'"
