@@ -1,0 +1,2 @@
+rm -rf docs
+typedoc src/scheduler.ts

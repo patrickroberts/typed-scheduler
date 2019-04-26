@@ -1,37 +1,67 @@
 import { EventEmitter } from 'events'
 
-type Cancelable = (resolve: () => void) => () => void
+export class PromiseCompletionSource<T> extends Promise<T> {
+  static get [Symbol.species] () { return Promise }
 
-export function delay (ms: number): Cancelable {
-  return resolve => {
-    const handle = setTimeout(resolve, ms)
+  public resolve: (value?: T | PromiseLike<T>) => void
+  public reject: (reason?: any) => void
 
-    return () => {
-      clearTimeout(handle)
-    }
+  constructor () {
+    let _resolve: (value?: T | PromiseLike<T>) => void = () => {}
+    let _reject: (reason?: any) => void = () => {}
+
+    super((resolve, reject) => {
+      _resolve = resolve
+      _reject = reject
+    })
+
+    this.resolve = _resolve
+    this.reject = _reject
   }
 }
 
-export function on (source: EventEmitter, name: string, cond: () => boolean = () => true): Cancelable {
-  return resolve => {
-    const listener = () => { if (cond()) resolve() }
-    source.on(name, listener)
+export type PromiseCompletion<T> =
+  (pcs?: PromiseCompletionSource<T>) => Promise<T>
 
-    return () => {
-      source.off(name, listener)
-    }
+export interface Timers {
+  setTimeout (
+    callback: (...args: any[]) => void,
+    ms: number, ...args: any[]
+  ): any
+  clearTimeout (timeout: any): void
+  setInterval (
+    callback: (...args: any[]) => void,
+    ms: number, ...args: any[]
+  ): any
+  clearInterval (timeout: any): void
+}
+
+export function delay (
+  ms: number,
+  timers: Timers = global
+): PromiseCompletion<void> {
+  return (pcs = new PromiseCompletionSource()) => {
+    const handle = timers.setTimeout(pcs.resolve, ms)
+    return pcs.finally(() => timers.clearTimeout(handle))
   }
 }
 
-export default function race (...cancelables: Cancelable[]): Promise<void> {
-  return new Promise(resolve => {
-    const cancels = cancelables.map(
-      cancelable => cancelable(
-        () => {
-          cancels.forEach(cancel => cancel())
-          resolve()
-        }
-      )
-    )
-  })
+export function once (
+  emitter: EventEmitter,
+  event: string,
+  cond: () => boolean = () => true
+): PromiseCompletion<void> {
+  return (pcs = new PromiseCompletionSource()) => {
+    const listener = () => { if (cond()) pcs.resolve() }
+    emitter.on(event, listener)
+    return pcs.finally(() => emitter.off(event, listener))
+  }
+}
+
+export function race (
+  ...completions: PromiseCompletion<void>[]
+): Promise<void> {
+  const pcs = new PromiseCompletionSource<void>()
+  completions.forEach(completion => completion(pcs))
+  return pcs
 }

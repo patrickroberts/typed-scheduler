@@ -3,7 +3,7 @@
 <head>
 	<meta charset="utf-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
-	<title>typed-scheduler | typed-scheduler</title>
+	<title>SchedulerOptions | typed-scheduler</title>
 	<meta name="description" content="">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<style type="text/css">/*! normalize.css v1.1.3 | MIT License | git.io/normalize */
@@ -879,7 +879,7 @@ img { max-width: 100%; }
 		<div class="container">
 			<div class="table-wrap">
 				<div class="table-cell">
-					<strong><a href="index.html">typed-scheduler</a></strong>
+					<strong><a href="../index.html">typed-scheduler</a></strong>
 				</div>
 				<div class="table-cell" id="tsd-widgets">
 					<div id="tsd-filter">
@@ -908,154 +908,119 @@ img { max-width: 100%; }
 <nav class="tsd-navigation secondary">
 	<ul>
 		<li class=" tsd-kind-class">
-			<a href="classes/scheduler.html" class="tsd-kind-icon">Scheduler</a>
+			<a href="../classes/scheduler.html" class="tsd-kind-icon">Scheduler</a>
 		</li>
-		<li class=" tsd-kind-interface tsd-is-not-exported">
-			<a href="interfaces/scheduleroptions.html" class="tsd-kind-icon">Scheduler<wbr>Options</a>
+		<li class="current tsd-kind-interface tsd-is-not-exported">
+			<a href="scheduleroptions.html" class="tsd-kind-icon">Scheduler<wbr>Options</a>
+			<ul>
+				<li class=" tsd-kind-property tsd-parent-kind-interface tsd-is-not-exported">
+					<a href="scheduleroptions.html#concurrency" class="tsd-kind-icon">concurrency</a>
+				</li>
+				<li class=" tsd-kind-property tsd-parent-kind-interface tsd-is-not-exported">
+					<a href="scheduleroptions.html#priorities" class="tsd-kind-icon">priorities</a>
+				</li>
+				<li class=" tsd-kind-property tsd-parent-kind-interface tsd-is-not-exported">
+					<a href="scheduleroptions.html#rate" class="tsd-kind-icon">rate</a>
+				</li>
+			</ul>
 		</li>
 		<li class=" tsd-kind-type-alias tsd-has-type-parameter tsd-is-not-exported">
-			<a href="globals.html#task" class="tsd-kind-icon">Task</a>
+			<a href="../globals.html#task" class="tsd-kind-icon">Task</a>
 		</li>
 	</ul>
 </nav>
 <div class="container container-main">
 	<div class="content-wrap">
-		<div class="tsd-panel tsd-typography">
-			<h1 id="typed-scheduler">typed-scheduler</h1>
-			<p>A Scheduler written in TypeScript for concurrency-limiting and rate-limiting</p>
-			<h2 id="docs-github-npm"><a href="https://patrickroberts.github.io/typed-scheduler">Docs</a> | <a href="https://github.com/patrickroberts/typed-scheduler">GitHub</a> | <a href="https://www.npmjs.com/package/typed-scheduler">npm</a></h2>
-			<h2 id="installing">Installing</h2>
-			<pre><code class="language-sh">$ npm i --save typed-scheduler</code></pre>
-			<h2 id="usage">Usage</h2>
-			<pre><code class="language-ts"><span class="hljs-keyword">import</span> Scheduler <span class="hljs-keyword">from</span> <span class="hljs-string">'typed-scheduler'</span>
-
-<span class="hljs-comment">// rate limit to 2 messages every second</span>
-<span class="hljs-comment">// defaults to 3 priorities</span>
-<span class="hljs-keyword">const</span> scheduler = <span class="hljs-keyword">new</span> Scheduler({ concurrency: <span class="hljs-number">2</span>, rate: <span class="hljs-number">1000</span> })
-
-<span class="hljs-comment">// queue 120 messages synchronously</span>
-<span class="hljs-comment">// scheduler will throttle to 2 messages / second</span>
-<span class="hljs-keyword">for</span> (<span class="hljs-keyword">let</span> i = <span class="hljs-number">1</span>; i &lt;= <span class="hljs-number">120</span>; i++) {
-  <span class="hljs-comment">// schedule with normal priority</span>
-  scheduler.scheduleNormal(<span class="hljs-built_in">console</span>.log, <span class="hljs-string">`message <span class="hljs-subst">${i}</span>`</span>)
-}</code></pre>
-			<h3 id="priority">Priority</h3>
-			<p>The second argument of <code>schedule()</code> is used to set the priority class of the scheduled function. The scheduler will handle scheduled functions in FIFO order within each priority class, and higher priorities will always be handled before lower priorities. A lower value means a higher priority.</p>
-			<h3 id="ready-and-idle-"><code>ready()</code> and <code>idle()</code></h3>
-			<p>The output of this program demonstrates when each of these methods resolves.</p>
-			<pre><code class="language-ts"><span class="hljs-keyword">import</span> { performance } <span class="hljs-keyword">from</span> <span class="hljs-string">'perf_hooks'</span>
-<span class="hljs-keyword">import</span> Scheduler <span class="hljs-keyword">from</span> <span class="hljs-string">'typed-scheduler'</span>
-
-<span class="hljs-keyword">const</span> print = <span class="hljs-function">(<span class="hljs-params">...args</span>) =&gt;</span>
-  <span class="hljs-built_in">console</span>.log(<span class="hljs-string">`<span class="hljs-subst">${
-    (performance.now() / 1000).toFixed(3)
-  }</span>s`</span>, ...args)
-<span class="hljs-keyword">const</span> s = <span class="hljs-keyword">new</span> Scheduler({ concurrency: <span class="hljs-number">1</span>, rate: <span class="hljs-number">1000</span>, priorities: <span class="hljs-number">3</span> })
-
-<span class="hljs-keyword">for</span> (<span class="hljs-keyword">let</span> i = <span class="hljs-number">0</span>; i &lt; <span class="hljs-number">3</span>; i++) {
-  <span class="hljs-keyword">for</span> (<span class="hljs-keyword">let</span> j = <span class="hljs-number">0</span>; j &lt; <span class="hljs-number">3</span>; j++) {
-    <span class="hljs-comment">// interleave priority classes</span>
-    s.schedule(
-      <span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span> print(<span class="hljs-string">'task'</span>, i * <span class="hljs-number">3</span> + j),
-      j
-    )
-  }
-
-  s.ready(i).then(
-    <span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span> print(<span class="hljs-string">`priority <span class="hljs-subst">${i}</span> ready`</span>)
-  )
-}
-
-s.idle().then(
-  <span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span> print(<span class="hljs-string">'scheduler idle'</span>)
-)</code></pre>
-			<p>Output</p>
-			<pre><code><span class="hljs-number">0.079</span>s task <span class="hljs-number">0</span>
-<span class="hljs-number">1.103</span>s task <span class="hljs-number">3</span>
-<span class="hljs-number">2.109</span>s task <span class="hljs-number">6</span>
-<span class="hljs-number">2.109</span>s priority <span class="hljs-number">0</span> ready
-<span class="hljs-number">3.113</span>s task <span class="hljs-number">1</span>
-<span class="hljs-number">4.119</span>s task <span class="hljs-number">4</span>
-<span class="hljs-number">5.119</span>s task <span class="hljs-number">7</span>
-<span class="hljs-number">5.119</span>s priority <span class="hljs-number">1</span> ready
-<span class="hljs-number">6.123</span>s task <span class="hljs-number">2</span>
-<span class="hljs-number">7.123</span>s task <span class="hljs-number">5</span>
-<span class="hljs-number">8.129</span>s task <span class="hljs-number">8</span>
-<span class="hljs-number">8.129</span>s priority <span class="hljs-number">2</span> ready
-<span class="hljs-number">9.135</span>s scheduler idle</code></pre><h3 id="concurrency-and-rate">Concurrency and Rate</h3>
-			<p>Note that the following schedulers do not behave identically.</p>
-			<pre><code class="language-ts"><span class="hljs-comment">// 2 tasks every second</span>
-<span class="hljs-keyword">new</span> Scheduler({ concurrency: <span class="hljs-number">2</span>, rate: <span class="hljs-number">1000</span> })
-<span class="hljs-comment">// 1 task every half second</span>
-<span class="hljs-keyword">new</span> Scheduler({ concurrency: <span class="hljs-number">1</span>, rate: <span class="hljs-number">500</span> })</code></pre>
-			<p>The former will execute two tasks without delay, then wait a full second after either completes before executing another task.</p>
-			<p>The latter will only execute one task at a time, then wait for half a second after it completes before executing another task.</p>
-		</div>
-		<div style="position:relative;"><a name="typedoc-main-index" class="tsd-anchor"></a></div>
+		<section class="tsd-panel tsd-comment">
+			<div class="tsd-comment tsd-typography">
+				<div class="lead">
+					<p>Configuration options for <a href="../classes/scheduler.html">Scheduler</a></p>
+				</div>
+			</div>
+		</section>
+		<section class="tsd-panel tsd-hierarchy">
+			<h3>Hierarchy</h3>
+			<ul class="tsd-hierarchy">
+				<li>
+					<span class="target">SchedulerOptions</span>
+				</li>
+			</ul>
+		</section>
 		<section class="tsd-panel-group tsd-index-group">
 			<h2>Index</h2>
 			<section class="tsd-panel tsd-index-panel">
 				<div class="tsd-index-content">
-					<section class="tsd-index-section ">
-						<h3>Classes</h3>
-						<ul class="tsd-index-list">
-							<li class="tsd-kind-class"><a href="classes/scheduler.html" class="tsd-kind-icon">Scheduler</a></li>
-						</ul>
-					</section>
 					<section class="tsd-index-section tsd-is-not-exported">
-						<h3>Interfaces</h3>
+						<h3>Properties</h3>
 						<ul class="tsd-index-list">
-							<li class="tsd-kind-interface tsd-is-not-exported"><a href="interfaces/scheduleroptions.html" class="tsd-kind-icon">Scheduler<wbr>Options</a></li>
-						</ul>
-					</section>
-					<section class="tsd-index-section tsd-is-not-exported">
-						<h3>Type aliases</h3>
-						<ul class="tsd-index-list">
-							<li class="tsd-kind-type-alias tsd-has-type-parameter tsd-is-not-exported"><a href="globals.html#task" class="tsd-kind-icon">Task</a></li>
+							<li class="tsd-kind-property tsd-parent-kind-interface tsd-is-not-exported"><a href="scheduleroptions.html#concurrency" class="tsd-kind-icon">concurrency</a></li>
+							<li class="tsd-kind-property tsd-parent-kind-interface tsd-is-not-exported"><a href="scheduleroptions.html#priorities" class="tsd-kind-icon">priorities</a></li>
+							<li class="tsd-kind-property tsd-parent-kind-interface tsd-is-not-exported"><a href="scheduleroptions.html#rate" class="tsd-kind-icon">rate</a></li>
 						</ul>
 					</section>
 				</div>
 			</section>
 		</section>
 		<section class="tsd-panel-group tsd-member-group tsd-is-not-exported">
-			<h2>Type aliases</h2>
-			<section class="tsd-panel tsd-member tsd-kind-type-alias tsd-has-type-parameter tsd-is-not-exported">
-				<a name="task" class="tsd-anchor"></a>
-				<h3>Task</h3>
-				<div class="tsd-signature tsd-kind-icon">Task<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">function</span></div>
+			<h2>Properties</h2>
+			<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface tsd-is-not-exported">
+				<a name="concurrency" class="tsd-anchor"></a>
+				<h3>concurrency</h3>
+				<div class="tsd-signature tsd-kind-icon">concurrency<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">number</span></div>
 				<aside class="tsd-sources">
 					<ul>
-						<li>Defined in <a href="https://github.com/patrickroberts/typed-scheduler/tree/master/src/scheduler.ts#L77">scheduler.ts:77</a></li>
+						<li>Defined in <a href="https://github.com/patrickroberts/typed-scheduler/tree/master/src/scheduler.ts#L63">scheduler.ts:63</a></li>
 					</ul>
 				</aside>
 				<div class="tsd-comment tsd-typography">
 					<div class="lead">
-						<p>Defines a function and its parameters as arguments to <a href="classes/scheduler.html#schedule">schedule</a>.</p>
+						<p>Configures <a href="../classes/scheduler.html#concurrency">Scheduler.concurrency</a>.</p>
 					</div>
+					<dl class="tsd-comment-tags">
+						<dt>default</dt>
+						<dd><p>Number.MAX_SAFE_INTEGER</p>
+						</dd>
+					</dl>
 				</div>
-				<div class="tsd-type-declaration">
-					<h4>Type declaration</h4>
-					<ul class="tsd-parameters">
-						<li class="tsd-parameter-siganture">
-							<ul class="tsd-signatures tsd-kind-type-literal tsd-parent-kind-type-alias tsd-is-not-exported">
-								<li class="tsd-signature tsd-kind-icon"><span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">...</span>args<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">P</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">T</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">T</span></li>
-							</ul>
-							<ul class="tsd-descriptions">
-								<li class="tsd-description">
-									<h4 class="tsd-parameters-title">Parameters</h4>
-									<ul class="tsd-parameters">
-										<li>
-											<h5><span class="tsd-flag ts-flagRest">Rest</span> <span class="tsd-signature-symbol">...</span>args: <span class="tsd-signature-type">P</span></h5>
-										</li>
-									</ul>
-									<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">T</span><span class="tsd-signature-symbol">&gt;</span>
-										<span class="tsd-signature-symbol"> | </span>
-										<span class="tsd-signature-type">T</span>
-									</h4>
-								</li>
-							</ul>
-						</li>
+			</section>
+			<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface tsd-is-not-exported">
+				<a name="priorities" class="tsd-anchor"></a>
+				<h3>priorities</h3>
+				<div class="tsd-signature tsd-kind-icon">priorities<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">number</span></div>
+				<aside class="tsd-sources">
+					<ul>
+						<li>Defined in <a href="https://github.com/patrickroberts/typed-scheduler/tree/master/src/scheduler.ts#L73">scheduler.ts:73</a></li>
 					</ul>
+				</aside>
+				<div class="tsd-comment tsd-typography">
+					<div class="lead">
+						<p>Configures <a href="../classes/scheduler.html#priorities">Scheduler.priorities</a>.</p>
+					</div>
+					<dl class="tsd-comment-tags">
+						<dt>default</dt>
+						<dd><p>3</p>
+						</dd>
+					</dl>
+				</div>
+			</section>
+			<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface tsd-is-not-exported">
+				<a name="rate" class="tsd-anchor"></a>
+				<h3>rate</h3>
+				<div class="tsd-signature tsd-kind-icon">rate<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">number</span></div>
+				<aside class="tsd-sources">
+					<ul>
+						<li>Defined in <a href="https://github.com/patrickroberts/typed-scheduler/tree/master/src/scheduler.ts#L68">scheduler.ts:68</a></li>
+					</ul>
+				</aside>
+				<div class="tsd-comment tsd-typography">
+					<div class="lead">
+						<p>Configures <a href="../classes/scheduler.html#rate">Scheduler.rate</a>.</p>
+					</div>
+					<dl class="tsd-comment-tags">
+						<dt>default</dt>
+						<dd><p>0</p>
+						</dd>
+					</dl>
 				</div>
 			</section>
 		</section>

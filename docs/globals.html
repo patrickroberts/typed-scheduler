@@ -895,8 +895,6 @@ img { max-width: 100%; }
 							</div>
 							<input type="checkbox" id="tsd-filter-inherited" checked />
 							<label class="tsd-widget" for="tsd-filter-inherited">Inherited</label>
-							<input type="checkbox" id="tsd-filter-externals" checked />
-							<label class="tsd-widget" for="tsd-filter-externals">Externals</label>
 							<input type="checkbox" id="tsd-filter-only-exported" />
 							<label class="tsd-widget" for="tsd-filter-only-exported">Only exported</label>
 						</div>
@@ -912,44 +910,11 @@ img { max-width: 100%; }
 		<li class=" tsd-kind-class">
 			<a href="classes/scheduler.html" class="tsd-kind-icon">Scheduler</a>
 		</li>
-		<li class=" tsd-kind-type-alias tsd-has-type-parameter tsd-is-external tsd-is-not-exported">
-			<a href="globals.html#assertion" class="tsd-kind-icon">Assertion</a>
-		</li>
-		<li class=" tsd-kind-type-alias tsd-is-external tsd-is-not-exported">
-			<a href="globals.html#cancelable" class="tsd-kind-icon">Cancelable</a>
+		<li class=" tsd-kind-interface tsd-is-not-exported">
+			<a href="interfaces/scheduleroptions.html" class="tsd-kind-icon">Scheduler<wbr>Options</a>
 		</li>
 		<li class=" tsd-kind-type-alias tsd-has-type-parameter tsd-is-not-exported">
 			<a href="globals.html#task" class="tsd-kind-icon">Task</a>
-		</li>
-		<li class=" tsd-kind-type-alias tsd-is-external tsd-is-not-exported">
-			<a href="globals.html#typeof" class="tsd-kind-icon">Typeof</a>
-		</li>
-		<li class=" tsd-kind-function tsd-is-external">
-			<a href="globals.html#assertarity" class="tsd-kind-icon">assert<wbr>Arity</a>
-		</li>
-		<li class=" tsd-kind-function tsd-is-external">
-			<a href="globals.html#assertinteger" class="tsd-kind-icon">assert<wbr>Integer</a>
-		</li>
-		<li class=" tsd-kind-function tsd-is-external">
-			<a href="globals.html#assertmax" class="tsd-kind-icon">assert<wbr>Max</a>
-		</li>
-		<li class=" tsd-kind-function tsd-is-external">
-			<a href="globals.html#assertmin" class="tsd-kind-icon">assert<wbr>Min</a>
-		</li>
-		<li class=" tsd-kind-function tsd-has-type-parameter tsd-is-external">
-			<a href="globals.html#asserttype" class="tsd-kind-icon">assert<wbr>Type</a>
-		</li>
-		<li class=" tsd-kind-function tsd-is-external">
-			<a href="globals.html#delay" class="tsd-kind-icon">delay</a>
-		</li>
-		<li class=" tsd-kind-function tsd-is-external">
-			<a href="globals.html#on" class="tsd-kind-icon">on</a>
-		</li>
-		<li class=" tsd-kind-function tsd-is-external">
-			<a href="globals.html#race" class="tsd-kind-icon">race</a>
-		</li>
-		<li class=" tsd-kind-function tsd-has-type-parameter tsd-is-external">
-			<a href="globals.html#validator" class="tsd-kind-icon">validator</a>
 		</li>
 	</ul>
 </nav>
@@ -958,24 +923,24 @@ img { max-width: 100%; }
 		<div class="tsd-panel tsd-typography">
 			<h1 id="typed-scheduler">typed-scheduler</h1>
 			<p>A Scheduler written in TypeScript for concurrency-limiting and rate-limiting</p>
-			<h2 id="docs-github-npm"><a href="https://patrickroberts.github.io/typed-scheduler">Docs</a> | <a href="https://github.com/patrickroberts/typed-scheduler">Github</a> | <a href="https://www.npmjs.com/package/typed-scheduler">npm</a></h2>
+			<h2 id="docs-github-npm"><a href="https://patrickroberts.github.io/typed-scheduler">Docs</a> | <a href="https://github.com/patrickroberts/typed-scheduler">GitHub</a> | <a href="https://www.npmjs.com/package/typed-scheduler">npm</a></h2>
 			<h2 id="installing">Installing</h2>
 			<pre><code class="language-sh">$ npm i --save typed-scheduler</code></pre>
 			<h2 id="usage">Usage</h2>
 			<pre><code class="language-ts"><span class="hljs-keyword">import</span> Scheduler <span class="hljs-keyword">from</span> <span class="hljs-string">'typed-scheduler'</span>
 
 <span class="hljs-comment">// rate limit to 2 messages every second</span>
-<span class="hljs-comment">// defaults to 3 priority classes</span>
-<span class="hljs-keyword">const</span> scheduler = <span class="hljs-keyword">new</span> Scheduler(<span class="hljs-number">2</span>, <span class="hljs-number">1000</span>, <span class="hljs-number">1</span>)
+<span class="hljs-comment">// defaults to 3 priorities</span>
+<span class="hljs-keyword">const</span> scheduler = <span class="hljs-keyword">new</span> Scheduler({ concurrency: <span class="hljs-number">2</span>, rate: <span class="hljs-number">1000</span> })
 
 <span class="hljs-comment">// queue 120 messages synchronously</span>
 <span class="hljs-comment">// scheduler will throttle to 2 messages / second</span>
 <span class="hljs-keyword">for</span> (<span class="hljs-keyword">let</span> i = <span class="hljs-number">1</span>; i &lt;= <span class="hljs-number">120</span>; i++) {
   <span class="hljs-comment">// schedule with normal priority</span>
-  scheduler.schedule(<span class="hljs-built_in">console</span>.log, <span class="hljs-number">1</span>, <span class="hljs-string">`message <span class="hljs-subst">${i}</span>`</span>)
+  scheduler.scheduleNormal(<span class="hljs-built_in">console</span>.log, <span class="hljs-string">`message <span class="hljs-subst">${i}</span>`</span>)
 }</code></pre>
 			<h3 id="priority">Priority</h3>
-			<p>The second argument of <code>schedule()</code> is used to set the priority class of the scheduled function. The scheduler will handle scheduled functions in FIFO order within each priority class, and higher priorities will always be handled before lower priorities. A lower value mean a higher priority.</p>
+			<p>The second argument of <code>schedule()</code> is used to set the priority class of the scheduled function. The scheduler will handle scheduled functions in FIFO order within each priority class, and higher priorities will always be handled before lower priorities. A lower value means a higher priority.</p>
 			<h3 id="ready-and-idle-"><code>ready()</code> and <code>idle()</code></h3>
 			<p>The output of this program demonstrates when each of these methods resolves.</p>
 			<pre><code class="language-ts"><span class="hljs-keyword">import</span> { performance } <span class="hljs-keyword">from</span> <span class="hljs-string">'perf_hooks'</span>
@@ -985,7 +950,7 @@ img { max-width: 100%; }
   <span class="hljs-built_in">console</span>.log(<span class="hljs-string">`<span class="hljs-subst">${
     (performance.now() / 1000).toFixed(3)
   }</span>s`</span>, ...args)
-<span class="hljs-keyword">const</span> s = <span class="hljs-keyword">new</span> Scheduler(<span class="hljs-number">1</span>, <span class="hljs-number">1000</span>, <span class="hljs-number">3</span>)
+<span class="hljs-keyword">const</span> s = <span class="hljs-keyword">new</span> Scheduler({ concurrency: <span class="hljs-number">1</span>, rate: <span class="hljs-number">1000</span>, priorities: <span class="hljs-number">3</span> })
 
 <span class="hljs-keyword">for</span> (<span class="hljs-keyword">let</span> i = <span class="hljs-number">0</span>; i &lt; <span class="hljs-number">3</span>; i++) {
   <span class="hljs-keyword">for</span> (<span class="hljs-keyword">let</span> j = <span class="hljs-number">0</span>; j &lt; <span class="hljs-number">3</span>; j++) {
@@ -1005,26 +970,26 @@ s.idle().then(
   <span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span> print(<span class="hljs-string">'scheduler idle'</span>)
 )</code></pre>
 			<p>Output</p>
-			<pre><code><span class="hljs-number">0.111</span>s task <span class="hljs-number">0</span>
-<span class="hljs-number">1.116</span>s task <span class="hljs-number">3</span>
-<span class="hljs-number">2.118</span>s task <span class="hljs-number">6</span>
-<span class="hljs-number">2.118</span>s priority <span class="hljs-number">0</span> ready
-<span class="hljs-number">3.120</span>s task <span class="hljs-number">1</span>
-<span class="hljs-number">4.121</span>s task <span class="hljs-number">4</span>
-<span class="hljs-number">5.121</span>s task <span class="hljs-number">7</span>
-<span class="hljs-number">5.122</span>s priority <span class="hljs-number">1</span> ready
-<span class="hljs-number">6.122</span>s task <span class="hljs-number">2</span>
+			<pre><code><span class="hljs-number">0.079</span>s task <span class="hljs-number">0</span>
+<span class="hljs-number">1.103</span>s task <span class="hljs-number">3</span>
+<span class="hljs-number">2.109</span>s task <span class="hljs-number">6</span>
+<span class="hljs-number">2.109</span>s priority <span class="hljs-number">0</span> ready
+<span class="hljs-number">3.113</span>s task <span class="hljs-number">1</span>
+<span class="hljs-number">4.119</span>s task <span class="hljs-number">4</span>
+<span class="hljs-number">5.119</span>s task <span class="hljs-number">7</span>
+<span class="hljs-number">5.119</span>s priority <span class="hljs-number">1</span> ready
+<span class="hljs-number">6.123</span>s task <span class="hljs-number">2</span>
 <span class="hljs-number">7.123</span>s task <span class="hljs-number">5</span>
-<span class="hljs-number">8.126</span>s task <span class="hljs-number">8</span>
-<span class="hljs-number">8.126</span>s priority <span class="hljs-number">2</span> ready
-<span class="hljs-number">9.127</span>s scheduler idle</code></pre><h3 id="concurrency-and-rate">Concurrency and Rate</h3>
+<span class="hljs-number">8.129</span>s task <span class="hljs-number">8</span>
+<span class="hljs-number">8.129</span>s priority <span class="hljs-number">2</span> ready
+<span class="hljs-number">9.135</span>s scheduler idle</code></pre><h3 id="concurrency-and-rate">Concurrency and Rate</h3>
 			<p>Note that the following schedulers do not behave identically.</p>
 			<pre><code class="language-ts"><span class="hljs-comment">// 2 tasks every second</span>
-<span class="hljs-keyword">new</span> Scheduler(<span class="hljs-number">2</span>, <span class="hljs-number">1000</span>)
+<span class="hljs-keyword">new</span> Scheduler({ concurrency: <span class="hljs-number">2</span>, rate: <span class="hljs-number">1000</span> })
 <span class="hljs-comment">// 1 task every half second</span>
-<span class="hljs-keyword">new</span> Scheduler(<span class="hljs-number">1</span>, <span class="hljs-number">500</span>)</code></pre>
-			<p>The former will execute two functions without delay, then wait a full second after either completes before executing another function.</p>
-			<p>The latter will only execute one function at a time, then wait for half a second after it completes before executing another function.</p>
+<span class="hljs-keyword">new</span> Scheduler({ concurrency: <span class="hljs-number">1</span>, rate: <span class="hljs-number">500</span> })</code></pre>
+			<p>The former will execute two tasks without delay, then wait a full second after either completes before executing another task.</p>
+			<p>The latter will only execute one task at a time, then wait for half a second after it completes before executing another task.</p>
 		</div>
 		<section class="tsd-panel-group tsd-index-group">
 			<h2>Index</h2>
@@ -1037,26 +1002,15 @@ s.idle().then(
 						</ul>
 					</section>
 					<section class="tsd-index-section tsd-is-not-exported">
-						<h3>Type aliases</h3>
+						<h3>Interfaces</h3>
 						<ul class="tsd-index-list">
-							<li class="tsd-kind-type-alias tsd-has-type-parameter tsd-is-external tsd-is-not-exported"><a href="globals.html#assertion" class="tsd-kind-icon">Assertion</a></li>
-							<li class="tsd-kind-type-alias tsd-is-external tsd-is-not-exported"><a href="globals.html#cancelable" class="tsd-kind-icon">Cancelable</a></li>
-							<li class="tsd-kind-type-alias tsd-has-type-parameter tsd-is-not-exported"><a href="globals.html#task" class="tsd-kind-icon">Task</a></li>
-							<li class="tsd-kind-type-alias tsd-is-external tsd-is-not-exported"><a href="globals.html#typeof" class="tsd-kind-icon">Typeof</a></li>
+							<li class="tsd-kind-interface tsd-is-not-exported"><a href="interfaces/scheduleroptions.html" class="tsd-kind-icon">Scheduler<wbr>Options</a></li>
 						</ul>
 					</section>
-					<section class="tsd-index-section tsd-is-external">
-						<h3>Functions</h3>
+					<section class="tsd-index-section tsd-is-not-exported">
+						<h3>Type aliases</h3>
 						<ul class="tsd-index-list">
-							<li class="tsd-kind-function tsd-is-external"><a href="globals.html#assertarity" class="tsd-kind-icon">assert<wbr>Arity</a></li>
-							<li class="tsd-kind-function tsd-is-external"><a href="globals.html#assertinteger" class="tsd-kind-icon">assert<wbr>Integer</a></li>
-							<li class="tsd-kind-function tsd-is-external"><a href="globals.html#assertmax" class="tsd-kind-icon">assert<wbr>Max</a></li>
-							<li class="tsd-kind-function tsd-is-external"><a href="globals.html#assertmin" class="tsd-kind-icon">assert<wbr>Min</a></li>
-							<li class="tsd-kind-function tsd-has-type-parameter tsd-is-external"><a href="globals.html#asserttype" class="tsd-kind-icon">assert<wbr>Type</a></li>
-							<li class="tsd-kind-function tsd-is-external"><a href="globals.html#delay" class="tsd-kind-icon">delay</a></li>
-							<li class="tsd-kind-function tsd-is-external"><a href="globals.html#on" class="tsd-kind-icon">on</a></li>
-							<li class="tsd-kind-function tsd-is-external"><a href="globals.html#race" class="tsd-kind-icon">race</a></li>
-							<li class="tsd-kind-function tsd-has-type-parameter tsd-is-external"><a href="globals.html#validator" class="tsd-kind-icon">validator</a></li>
+							<li class="tsd-kind-type-alias tsd-has-type-parameter tsd-is-not-exported"><a href="globals.html#task" class="tsd-kind-icon">Task</a></li>
 						</ul>
 					</section>
 				</div>
@@ -1064,110 +1018,26 @@ s.idle().then(
 		</section>
 		<section class="tsd-panel-group tsd-member-group tsd-is-not-exported">
 			<h2>Type aliases</h2>
-			<section class="tsd-panel tsd-member tsd-kind-type-alias tsd-has-type-parameter tsd-is-external tsd-is-not-exported">
-				<a name="assertion" class="tsd-anchor"></a>
-				<h3>Assertion</h3>
-				<div class="tsd-signature tsd-kind-icon">Assertion<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">function</span></div>
-				<aside class="tsd-sources">
-					<ul>
-						<li>Defined in <a href="https://github.com/patrickroberts/typed-scheduler/tree/master/src/validators.ts#L1">validators.ts:1</a></li>
-					</ul>
-				</aside>
-				<div class="tsd-type-declaration">
-					<h4>Type declaration</h4>
-					<ul class="tsd-parameters">
-						<li class="tsd-parameter-siganture">
-							<ul class="tsd-signatures tsd-kind-type-literal tsd-parent-kind-type-alias tsd-is-not-exported">
-								<li class="tsd-signature tsd-kind-icon"><span class="tsd-signature-symbol">(</span>value<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">V</span>, name<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">void</span></li>
-							</ul>
-							<ul class="tsd-descriptions">
-								<li class="tsd-description">
-									<h4 class="tsd-parameters-title">Parameters</h4>
-									<ul class="tsd-parameters">
-										<li>
-											<h5>value: <span class="tsd-signature-type">V</span></h5>
-										</li>
-										<li>
-											<h5>name: <span class="tsd-signature-type">string</span></h5>
-										</li>
-									</ul>
-									<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4>
-								</li>
-							</ul>
-						</li>
-					</ul>
-				</div>
-			</section>
-			<section class="tsd-panel tsd-member tsd-kind-type-alias tsd-is-external tsd-is-not-exported">
-				<a name="cancelable" class="tsd-anchor"></a>
-				<h3>Cancelable</h3>
-				<div class="tsd-signature tsd-kind-icon">Cancelable<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">function</span></div>
-				<aside class="tsd-sources">
-					<ul>
-						<li>Defined in <a href="https://github.com/patrickroberts/typed-scheduler/tree/master/src/utils.ts#L3">utils.ts:3</a></li>
-					</ul>
-				</aside>
-				<div class="tsd-type-declaration">
-					<h4>Type declaration</h4>
-					<ul class="tsd-parameters">
-						<li class="tsd-parameter-siganture">
-							<ul class="tsd-signatures tsd-kind-type-literal tsd-parent-kind-type-alias tsd-is-not-exported">
-								<li class="tsd-signature tsd-kind-icon"><span class="tsd-signature-symbol">(</span>resolve<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">function</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">function</span></li>
-							</ul>
-							<ul class="tsd-descriptions">
-								<li class="tsd-description">
-									<h4 class="tsd-parameters-title">Parameters</h4>
-									<ul class="tsd-parameters">
-										<li>
-											<h5>resolve: <span class="tsd-signature-type">function</span></h5>
-											<ul class="tsd-parameters">
-												<li class="tsd-parameter-siganture">
-													<ul class="tsd-signatures tsd-kind-type-literal tsd-is-not-exported">
-														<li class="tsd-signature tsd-kind-icon"><span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">void</span></li>
-													</ul>
-													<ul class="tsd-descriptions">
-														<li class="tsd-description">
-															<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4>
-														</li>
-													</ul>
-												</li>
-											</ul>
-										</li>
-									</ul>
-									<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">function</span></h4>
-									<ul class="tsd-parameters">
-										<li class="tsd-parameter-siganture">
-											<ul class="tsd-signatures tsd-kind-type-literal tsd-is-not-exported">
-												<li class="tsd-signature tsd-kind-icon"><span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">void</span></li>
-											</ul>
-											<ul class="tsd-descriptions">
-												<li class="tsd-description">
-													<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4>
-												</li>
-											</ul>
-										</li>
-									</ul>
-								</li>
-							</ul>
-						</li>
-					</ul>
-				</div>
-			</section>
 			<section class="tsd-panel tsd-member tsd-kind-type-alias tsd-has-type-parameter tsd-is-not-exported">
 				<a name="task" class="tsd-anchor"></a>
 				<h3>Task</h3>
 				<div class="tsd-signature tsd-kind-icon">Task<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">function</span></div>
 				<aside class="tsd-sources">
 					<ul>
-						<li>Defined in <a href="https://github.com/patrickroberts/typed-scheduler/tree/master/src/scheduler.ts#L56">scheduler.ts:56</a></li>
+						<li>Defined in <a href="https://github.com/patrickroberts/typed-scheduler/tree/master/src/scheduler.ts#L77">scheduler.ts:77</a></li>
 					</ul>
 				</aside>
+				<div class="tsd-comment tsd-typography">
+					<div class="lead">
+						<p>Defines a function and its parameters as arguments to <a href="classes/scheduler.html#schedule">schedule</a>.</p>
+					</div>
+				</div>
 				<div class="tsd-type-declaration">
 					<h4>Type declaration</h4>
 					<ul class="tsd-parameters">
 						<li class="tsd-parameter-siganture">
 							<ul class="tsd-signatures tsd-kind-type-literal tsd-parent-kind-type-alias tsd-is-not-exported">
-								<li class="tsd-signature tsd-kind-icon"><span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">...</span>args<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">P</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">T</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">T</span><span class="tsd-signature-symbol">&gt;</span></li>
+								<li class="tsd-signature tsd-kind-icon"><span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">...</span>args<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">P</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">T</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">T</span></li>
 							</ul>
 							<ul class="tsd-descriptions">
 								<li class="tsd-description">
@@ -1177,280 +1047,15 @@ s.idle().then(
 											<h5><span class="tsd-flag ts-flagRest">Rest</span> <span class="tsd-signature-symbol">...</span>args: <span class="tsd-signature-type">P</span></h5>
 										</li>
 									</ul>
-									<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">T</span>
+									<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">T</span><span class="tsd-signature-symbol">&gt;</span>
 										<span class="tsd-signature-symbol"> | </span>
-										<span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">T</span><span class="tsd-signature-symbol">&gt;</span>
+										<span class="tsd-signature-type">T</span>
 									</h4>
 								</li>
 							</ul>
 						</li>
 					</ul>
 				</div>
-			</section>
-			<section class="tsd-panel tsd-member tsd-kind-type-alias tsd-is-external tsd-is-not-exported">
-				<a name="typeof" class="tsd-anchor"></a>
-				<h3>Typeof</h3>
-				<div class="tsd-signature tsd-kind-icon">Typeof<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">"string"</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">"number"</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">"bigint"</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">"boolean"</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">"symbol"</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">"undefined"</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">"object"</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">"function"</span></div>
-				<aside class="tsd-sources">
-					<ul>
-						<li>Defined in <a href="https://github.com/patrickroberts/typed-scheduler/tree/master/src/validators.ts#L2">validators.ts:2</a></li>
-					</ul>
-				</aside>
-			</section>
-		</section>
-		<section class="tsd-panel-group tsd-member-group tsd-is-external">
-			<h2>Functions</h2>
-			<section class="tsd-panel tsd-member tsd-kind-function tsd-is-external">
-				<a name="assertarity" class="tsd-anchor"></a>
-				<h3>assert<wbr>Arity</h3>
-				<ul class="tsd-signatures tsd-kind-function tsd-is-external">
-					<li class="tsd-signature tsd-kind-icon">assert<wbr>Arity<span class="tsd-signature-symbol">(</span>arity<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">number</span>, strict<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">boolean</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">(Anonymous function)</span></li>
-				</ul>
-				<ul class="tsd-descriptions">
-					<li class="tsd-description">
-						<aside class="tsd-sources">
-							<ul>
-								<li>Defined in <a href="https://github.com/patrickroberts/typed-scheduler/tree/master/src/validators.ts#L46">validators.ts:46</a></li>
-							</ul>
-						</aside>
-						<h4 class="tsd-parameters-title">Parameters</h4>
-						<ul class="tsd-parameters">
-							<li>
-								<h5>arity: <span class="tsd-signature-type">number</span></h5>
-							</li>
-							<li>
-								<h5><span class="tsd-flag ts-flagDefault value">Default value</span> strict: <span class="tsd-signature-type">boolean</span><span class="tsd-signature-symbol"> =&nbsp;false</span></h5>
-							</li>
-						</ul>
-						<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">(Anonymous function)</span></h4>
-					</li>
-				</ul>
-			</section>
-			<section class="tsd-panel tsd-member tsd-kind-function tsd-is-external">
-				<a name="assertinteger" class="tsd-anchor"></a>
-				<h3>assert<wbr>Integer</h3>
-				<ul class="tsd-signatures tsd-kind-function tsd-is-external">
-					<li class="tsd-signature tsd-kind-icon">assert<wbr>Integer<span class="tsd-signature-symbol">(</span>value<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">number</span>, name<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">void</span></li>
-				</ul>
-				<ul class="tsd-descriptions">
-					<li class="tsd-description">
-						<aside class="tsd-sources">
-							<ul>
-								<li>Defined in <a href="https://github.com/patrickroberts/typed-scheduler/tree/master/src/validators.ts#L20">validators.ts:20</a></li>
-							</ul>
-						</aside>
-						<h4 class="tsd-parameters-title">Parameters</h4>
-						<ul class="tsd-parameters">
-							<li>
-								<h5>value: <span class="tsd-signature-type">number</span></h5>
-							</li>
-							<li>
-								<h5>name: <span class="tsd-signature-type">string</span></h5>
-							</li>
-						</ul>
-						<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4>
-					</li>
-				</ul>
-			</section>
-			<section class="tsd-panel tsd-member tsd-kind-function tsd-is-external">
-				<a name="assertmax" class="tsd-anchor"></a>
-				<h3>assert<wbr>Max</h3>
-				<ul class="tsd-signatures tsd-kind-function tsd-is-external">
-					<li class="tsd-signature tsd-kind-icon">assert<wbr>Max<span class="tsd-signature-symbol">(</span>maximum<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">number</span>, inclusive<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">boolean</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">(Anonymous function)</span></li>
-				</ul>
-				<ul class="tsd-descriptions">
-					<li class="tsd-description">
-						<aside class="tsd-sources">
-							<ul>
-								<li>Defined in <a href="https://github.com/patrickroberts/typed-scheduler/tree/master/src/validators.ts#L36">validators.ts:36</a></li>
-							</ul>
-						</aside>
-						<h4 class="tsd-parameters-title">Parameters</h4>
-						<ul class="tsd-parameters">
-							<li>
-								<h5>maximum: <span class="tsd-signature-type">number</span></h5>
-							</li>
-							<li>
-								<h5><span class="tsd-flag ts-flagDefault value">Default value</span> inclusive: <span class="tsd-signature-type">boolean</span><span class="tsd-signature-symbol"> =&nbsp;true</span></h5>
-							</li>
-						</ul>
-						<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">(Anonymous function)</span></h4>
-					</li>
-				</ul>
-			</section>
-			<section class="tsd-panel tsd-member tsd-kind-function tsd-is-external">
-				<a name="assertmin" class="tsd-anchor"></a>
-				<h3>assert<wbr>Min</h3>
-				<ul class="tsd-signatures tsd-kind-function tsd-is-external">
-					<li class="tsd-signature tsd-kind-icon">assert<wbr>Min<span class="tsd-signature-symbol">(</span>minimum<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">number</span>, inclusive<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">boolean</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">(Anonymous function)</span></li>
-				</ul>
-				<ul class="tsd-descriptions">
-					<li class="tsd-description">
-						<aside class="tsd-sources">
-							<ul>
-								<li>Defined in <a href="https://github.com/patrickroberts/typed-scheduler/tree/master/src/validators.ts#L26">validators.ts:26</a></li>
-							</ul>
-						</aside>
-						<h4 class="tsd-parameters-title">Parameters</h4>
-						<ul class="tsd-parameters">
-							<li>
-								<h5>minimum: <span class="tsd-signature-type">number</span></h5>
-							</li>
-							<li>
-								<h5><span class="tsd-flag ts-flagDefault value">Default value</span> inclusive: <span class="tsd-signature-type">boolean</span><span class="tsd-signature-symbol"> =&nbsp;true</span></h5>
-							</li>
-						</ul>
-						<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">(Anonymous function)</span></h4>
-					</li>
-				</ul>
-			</section>
-			<section class="tsd-panel tsd-member tsd-kind-function tsd-has-type-parameter tsd-is-external">
-				<a name="asserttype" class="tsd-anchor"></a>
-				<h3>assert<wbr>Type</h3>
-				<ul class="tsd-signatures tsd-kind-function tsd-has-type-parameter tsd-is-external">
-					<li class="tsd-signature tsd-kind-icon">assert<wbr>Type&lt;V&gt;<span class="tsd-signature-symbol">(</span>type<span class="tsd-signature-symbol">: </span><a href="globals.html#typeof" class="tsd-signature-type">Typeof</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="globals.html#assertion" class="tsd-signature-type">Assertion</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">V</span><span class="tsd-signature-symbol">&gt;</span></li>
-				</ul>
-				<ul class="tsd-descriptions">
-					<li class="tsd-description">
-						<aside class="tsd-sources">
-							<ul>
-								<li>Defined in <a href="https://github.com/patrickroberts/typed-scheduler/tree/master/src/validators.ts#L10">validators.ts:10</a></li>
-							</ul>
-						</aside>
-						<h4 class="tsd-type-parameters-title">Type parameters</h4>
-						<ul class="tsd-type-parameters">
-							<li>
-								<h4>V</h4>
-							</li>
-						</ul>
-						<h4 class="tsd-parameters-title">Parameters</h4>
-						<ul class="tsd-parameters">
-							<li>
-								<h5>type: <a href="globals.html#typeof" class="tsd-signature-type">Typeof</a></h5>
-							</li>
-						</ul>
-						<h4 class="tsd-returns-title">Returns <a href="globals.html#assertion" class="tsd-signature-type">Assertion</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">V</span><span class="tsd-signature-symbol">&gt;</span></h4>
-					</li>
-				</ul>
-			</section>
-			<section class="tsd-panel tsd-member tsd-kind-function tsd-is-external">
-				<a name="delay" class="tsd-anchor"></a>
-				<h3>delay</h3>
-				<ul class="tsd-signatures tsd-kind-function tsd-is-external">
-					<li class="tsd-signature tsd-kind-icon">delay<span class="tsd-signature-symbol">(</span>ms<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">number</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="globals.html#cancelable" class="tsd-signature-type">Cancelable</a></li>
-				</ul>
-				<ul class="tsd-descriptions">
-					<li class="tsd-description">
-						<aside class="tsd-sources">
-							<ul>
-								<li>Defined in <a href="https://github.com/patrickroberts/typed-scheduler/tree/master/src/utils.ts#L5">utils.ts:5</a></li>
-							</ul>
-						</aside>
-						<h4 class="tsd-parameters-title">Parameters</h4>
-						<ul class="tsd-parameters">
-							<li>
-								<h5>ms: <span class="tsd-signature-type">number</span></h5>
-							</li>
-						</ul>
-						<h4 class="tsd-returns-title">Returns <a href="globals.html#cancelable" class="tsd-signature-type">Cancelable</a></h4>
-					</li>
-				</ul>
-			</section>
-			<section class="tsd-panel tsd-member tsd-kind-function tsd-is-external">
-				<a name="on" class="tsd-anchor"></a>
-				<h3>on</h3>
-				<ul class="tsd-signatures tsd-kind-function tsd-is-external">
-					<li class="tsd-signature tsd-kind-icon">on<span class="tsd-signature-symbol">(</span>source<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">EventEmitter</span>, name<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span>, cond<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">function</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="globals.html#cancelable" class="tsd-signature-type">Cancelable</a></li>
-				</ul>
-				<ul class="tsd-descriptions">
-					<li class="tsd-description">
-						<aside class="tsd-sources">
-							<ul>
-								<li>Defined in <a href="https://github.com/patrickroberts/typed-scheduler/tree/master/src/utils.ts#L15">utils.ts:15</a></li>
-							</ul>
-						</aside>
-						<h4 class="tsd-parameters-title">Parameters</h4>
-						<ul class="tsd-parameters">
-							<li>
-								<h5>source: <span class="tsd-signature-type">EventEmitter</span></h5>
-							</li>
-							<li>
-								<h5>name: <span class="tsd-signature-type">string</span></h5>
-							</li>
-							<li>
-								<h5><span class="tsd-flag ts-flagDefault value">Default value</span> cond: <span class="tsd-signature-type">function</span><span class="tsd-signature-symbol"> =&nbsp;() &#x3D;&gt; true</span></h5>
-								<ul class="tsd-parameters">
-									<li class="tsd-parameter-siganture">
-										<ul class="tsd-signatures tsd-kind-type-literal tsd-is-not-exported">
-											<li class="tsd-signature tsd-kind-icon"><span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">boolean</span></li>
-										</ul>
-										<ul class="tsd-descriptions">
-											<li class="tsd-description">
-												<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">boolean</span></h4>
-											</li>
-										</ul>
-									</li>
-								</ul>
-							</li>
-						</ul>
-						<h4 class="tsd-returns-title">Returns <a href="globals.html#cancelable" class="tsd-signature-type">Cancelable</a></h4>
-					</li>
-				</ul>
-			</section>
-			<section class="tsd-panel tsd-member tsd-kind-function tsd-is-external">
-				<a name="race" class="tsd-anchor"></a>
-				<h3>race</h3>
-				<ul class="tsd-signatures tsd-kind-function tsd-is-external">
-					<li class="tsd-signature tsd-kind-icon">race<span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">...</span>cancelables<span class="tsd-signature-symbol">: </span><a href="globals.html#cancelable" class="tsd-signature-type">Cancelable</a><span class="tsd-signature-symbol">[]</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">void</span><span class="tsd-signature-symbol">&gt;</span></li>
-				</ul>
-				<ul class="tsd-descriptions">
-					<li class="tsd-description">
-						<aside class="tsd-sources">
-							<ul>
-								<li>Defined in <a href="https://github.com/patrickroberts/typed-scheduler/tree/master/src/utils.ts#L26">utils.ts:26</a></li>
-							</ul>
-						</aside>
-						<h4 class="tsd-parameters-title">Parameters</h4>
-						<ul class="tsd-parameters">
-							<li>
-								<h5><span class="tsd-flag ts-flagRest">Rest</span> <span class="tsd-signature-symbol">...</span>cancelables: <a href="globals.html#cancelable" class="tsd-signature-type">Cancelable</a><span class="tsd-signature-symbol">[]</span></h5>
-							</li>
-						</ul>
-						<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">void</span><span class="tsd-signature-symbol">&gt;</span></h4>
-					</li>
-				</ul>
-			</section>
-			<section class="tsd-panel tsd-member tsd-kind-function tsd-has-type-parameter tsd-is-external">
-				<a name="validator" class="tsd-anchor"></a>
-				<h3>validator</h3>
-				<ul class="tsd-signatures tsd-kind-function tsd-has-type-parameter tsd-is-external">
-					<li class="tsd-signature tsd-kind-icon">validator&lt;V&gt;<span class="tsd-signature-symbol">(</span>name<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span>, <span class="tsd-signature-symbol">...</span>assertions<span class="tsd-signature-symbol">: </span><a href="globals.html#assertion" class="tsd-signature-type">Assertion</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">V</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">[]</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">(Anonymous function)</span></li>
-				</ul>
-				<ul class="tsd-descriptions">
-					<li class="tsd-description">
-						<aside class="tsd-sources">
-							<ul>
-								<li>Defined in <a href="https://github.com/patrickroberts/typed-scheduler/tree/master/src/validators.ts#L4">validators.ts:4</a></li>
-							</ul>
-						</aside>
-						<h4 class="tsd-type-parameters-title">Type parameters</h4>
-						<ul class="tsd-type-parameters">
-							<li>
-								<h4>V</h4>
-							</li>
-						</ul>
-						<h4 class="tsd-parameters-title">Parameters</h4>
-						<ul class="tsd-parameters">
-							<li>
-								<h5>name: <span class="tsd-signature-type">string</span></h5>
-							</li>
-							<li>
-								<h5><span class="tsd-flag ts-flagRest">Rest</span> <span class="tsd-signature-symbol">...</span>assertions: <a href="globals.html#assertion" class="tsd-signature-type">Assertion</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">V</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">[]</span></h5>
-							</li>
-						</ul>
-						<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">(Anonymous function)</span></h4>
-					</li>
-				</ul>
 			</section>
 		</section>
 		<footer class="with-border-bottom">

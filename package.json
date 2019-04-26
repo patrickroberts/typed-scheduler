@@ -1,15 +1,15 @@
 {
   "name": "typed-scheduler",
-  "version": "0.1.2",
+  "version": "0.2.0",
   "description": "A Scheduler written in TypeScript for concurrency-limiting and rate-limiting",
   "main": "dst/scheduler.js",
   "repository": "github:patrickroberts/typed-scheduler",
   "scripts": {
-    "compile": "rm -rf dst; tsc -p .",
+    "compile": "./scripts/compile",
     "lint": "tslint -p . --fix",
     "test": "npm run lint",
-    "docs": "rm -rf docs; typedoc src/scheduler.ts",
-    "build": "npm run compile && npm run test && npm run docs"
+    "docs": "./scripts/docs",
+    "build": "npm run test && npm run compile && npm run docs"
   },
   "keywords": [
     "async",
@@ -26,11 +26,14 @@
   "author": "Patrick Roberts",
   "license": "MIT",
   "devDependencies": {
-    "@types/node": "^11.13.0",
-    "tslint": "^5.15.0",
+    "@types/node": "^11.13.7",
+    "browserify": "^16.2.3",
+    "tsify": "^4.0.1",
+    "tslint": "^5.16.0",
     "tslint-config-standard": "^8.0.1",
     "typedoc": "^0.14.2",
     "typedoc-plugin-sourcefile-url": "^1.0.4",
-    "typescript": "^3.4.2"
+    "typescript": "^3.4.5",
+    "uglify-es": "^3.3.9"
   }
 }

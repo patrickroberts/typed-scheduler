@@ -2,9 +2,7 @@ module.exports = {
   out: 'docs',
   theme: 'minimal',
   mode: 'file',
-  excludeExternals: false,
+  excludeExternals: true,
   excludeNotExported: false,
-  'internal-aliases': ['api'],
-  'external-aliases': ['internal'],
   'sourcefile-url-prefix': 'https://github.com/patrickroberts/typed-scheduler/tree/master/src/'
 }
