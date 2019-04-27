@@ -1,7 +1,0 @@
-rm -f dst/*
-browserify src/scheduler.ts \
-  -p [tsify -p . --global] \
-  -s Scheduler > dst/scheduler.js
-uglifyjs dst/scheduler.js \
-  -o dst/scheduler.min.js -c -m \
-  --source-map "base='dst',url='scheduler.min.js.map'"

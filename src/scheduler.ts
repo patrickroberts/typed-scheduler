@@ -1,11 +1,9 @@
 import { EventEmitter } from 'events'
 import { PromiseCompletionSource, delay, once, race } from './utils'
-import validator, {
-  assertType, assertInteger, assertMin, assertMax, assertArity
-} from './validators'
+import { validator, assertType, assertInteger, assertMin, assertMax, assertArity } from './validators'
 
 /** @ignore */
-const validateConcurrency = validator(
+const validateConcurrency = validator<number>(
   'concurrency',
   assertType('number'),
   assertInteger,
@@ -14,14 +12,14 @@ const validateConcurrency = validator(
 )
 
 /** @ignore */
-const validateRate = validator(
+const validateRate = validator<number>(
   'rate',
   assertType('number'),
   assertMin(0)
 )
 
 /** @ignore */
-const validatePriorities = validator(
+const validatePriorities = validator<number>(
   'priorities',
   assertType('number'),
   assertInteger,
@@ -30,14 +28,14 @@ const validatePriorities = validator(
 )
 
 /** @ignore */
-const validateFn = (arity: number) => validator(
+const validateFn = (arity: number) => validator<Function>(
   'fn',
   assertType('function'),
   assertArity(arity)
 )
 
 /** @ignore */
-const validateNormal = (priorities: number) => validator(
+const validateNormal = (priorities: number) => validator<number>(
   'normal',
   assertType('number'),
   assertInteger,
@@ -46,7 +44,7 @@ const validateNormal = (priorities: number) => validator(
 )
 
 /** @ignore */
-const validatePriority = (priorities: number) => validator(
+const validatePriority = (priorities: number) => validator<number>(
   'priority',
   assertType('number'),
   assertInteger,
@@ -55,7 +53,7 @@ const validatePriority = (priorities: number) => validator(
 )
 
 /** Configuration options for [[Scheduler]] */
-interface SchedulerOptions {
+export interface SchedulerOptions {
   /**
    * Configures [[Scheduler.concurrency]].
    * @default Number.MAX_SAFE_INTEGER
@@ -74,13 +72,13 @@ interface SchedulerOptions {
 }
 
 /** Defines a function and its parameters as arguments to [[schedule]]. */
-type Task<T, P extends any[]> = (...args: P) => Promise<T> | T
+export type Task<T, P extends any[]> = (...args: P) => Promise<T> | T
 
 /**
  * Main export of [typed-scheduler](..). Performs asynchronous task scheduling
  * with options for priority levels, concurrency-limiting, and rate-limiting.
  */
-class Scheduler {
+export default class Scheduler {
   private _concurrency: number
   private _rate: number
   private _normal: number
@@ -371,5 +369,3 @@ class Scheduler {
     }
   }
 }
-
-export = Scheduler

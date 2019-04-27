@@ -54,7 +54,7 @@ export function once (
   return (pcs = new PromiseCompletionSource()) => {
     const listener = () => { if (cond()) pcs.resolve() }
     emitter.on(event, listener)
-    return pcs.finally(() => emitter.off(event, listener))
+    return pcs.finally(() => emitter.removeListener(event, listener))
   }
 }
 

@@ -1,7 +1,7 @@
 .eslintrc.json
 .gitignore
 docs
-scripts
 src
+rollup.config.js
 tslint.json
 typedoc.js

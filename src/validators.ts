@@ -1,11 +1,12 @@
-type Assertion<V> = (value: V, name: string) => void
-type Typeof = 'string' | 'number' | 'bigint' | 'boolean' | 'symbol' | 'undefined' | 'object' | 'function'
+export type Assertion<V> = (value: V, name: string) => void
 
-export default function validator<V> (name: string, ...assertions: Assertion<V>[]) {
+export function validator<V> (name: string, ...assertions: Assertion<V>[]) {
   return (value: V) => {
     assertions.forEach(assert => assert(value, name))
   }
 }
+
+type Typeof = 'string' | 'number' | 'bigint' | 'boolean' | 'symbol' | 'undefined' | 'object' | 'function'
 
 export function assertType<V> (type: Typeof): Assertion<V> {
   const article = /^[aeiou]/.test(type) ? 'an' : 'a'

@@ -1,16 +1,7 @@
 {
   "name": "typed-scheduler",
-  "version": "0.2.1",
+  "version": "0.3.0",
   "description": "A Scheduler written in TypeScript for concurrency-limiting and rate-limiting",
-  "main": "dst/scheduler.js",
-  "repository": "github:patrickroberts/typed-scheduler",
-  "scripts": {
-    "compile": "./scripts/compile",
-    "lint": "tslint -p . --fix",
-    "test": "npm run lint",
-    "docs": "./scripts/docs",
-    "build": "npm run test && npm run compile && npm run docs"
-  },
   "keywords": [
     "async",
     "batch",
@@ -23,17 +14,35 @@
     "task",
     "typescript"
   ],
-  "author": "Patrick Roberts",
+  "homepage": "https://patrickroberts.github.io/typed-scheduler/",
+  "bugs": "https://github.com/patrickroberts/typed-scheduler/issues",
   "license": "MIT",
+  "author": "Patrick Roberts",
+  "main": "dst/scheduler.js",
+  "browser": "dst/scheduler.min.js",
+  "repository": "github:patrickroberts/typed-scheduler",
+  "scripts": {
+    "lint": "tslint -p . --fix",
+    "make": "rimraf dst && rollup -c",
+    "docs": "rimraf docs && typedoc src/scheduler.ts",
+    "build": "npm run lint && npm run make && npm run docs",
+    "prepublishOnly": "npm run build"
+  },
   "devDependencies": {
     "@types/node": "^11.13.7",
-    "browserify": "^16.2.3",
-    "tsify": "^4.0.1",
+    "rimraf": "^2.6.3",
+    "rollup": "^1.10.1",
+    "rollup-plugin-node-builtins": "^2.1.2",
+    "rollup-plugin-terser": "^4.0.4",
+    "rollup-plugin-typescript": "^1.0.1",
     "tslint": "^5.16.0",
     "tslint-config-standard": "^8.0.1",
     "typedoc": "^0.14.2",
     "typedoc-plugin-sourcefile-url": "^1.0.4",
-    "typescript": "^3.4.5",
-    "uglify-es": "^3.3.9"
+    "typescript": "^3.4.5"
+  },
+  "engines": {
+    "node": ">=10.0.0",
+    "npm": ">=4.0.0"
   }
 }
