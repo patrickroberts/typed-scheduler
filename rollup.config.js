@@ -1,19 +1,32 @@
-import typescript from 'rollup-plugin-typescript'
+import { ts, dts } from 'rollup-plugin-dts'
 import builtins from 'rollup-plugin-node-builtins'
 import { terser } from 'rollup-plugin-terser'
+import pkg from './package.json'
 
+const name = 'Scheduler'
 const input = 'src/scheduler.ts'
-const output = { format: 'umd', name: 'Scheduler', sourcemap: true }
+const external = ['events']
 
 export default [
   {
     input,
-    output: { ...output, file: 'dst/scheduler.js' },
-    plugins: [typescript(), builtins()]
+    output: { file: pkg.module, format: 'es' },
+    plugins: [ts()],
+    external
   },
   {
     input,
-    output: { ...output, file: 'dst/scheduler.min.js' },
-    plugins: [typescript(), builtins(), terser()]
+    output: { file: pkg.main, format: 'umd', name, sourcemap: true },
+    plugins: [builtins(), ts()]
+  },
+  {
+    input,
+    output: { file: pkg.browser, format: 'umd', name, sourcemap: true },
+    plugins: [builtins(), ts(), terser()]
+  },
+  {
+    input,
+    output: { file: pkg.types, format: 'es' },
+    plugins: [dts()]
   }
 ]
