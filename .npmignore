@@ -3,5 +3,6 @@
 docs
 src
 rollup.config.js
+tsconfig.json
 tslint.json
 typedoc.js
