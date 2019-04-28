@@ -2,37 +2,18 @@ import typescript from 'rollup-plugin-typescript'
 import builtins from 'rollup-plugin-node-builtins'
 import { terser } from 'rollup-plugin-terser'
 
-const { input, output, plugins } = {
-  input: 'src/scheduler.ts',
-  output: {
-    format: 'umd',
-    name: 'Scheduler',
-    sourcemap: true
-  },
-  plugins: [
-    typescript(),
-    builtins()
-  ]
-}
+const input = 'src/scheduler.ts'
+const output = { format: 'umd', name: 'Scheduler', sourcemap: true }
 
 export default [
   {
     input,
-    output: {
-      file: 'dst/scheduler.js',
-      ...output
-    },
-    plugins
+    output: { ...output, file: 'dst/scheduler.js' },
+    plugins: [typescript(), builtins()]
   },
   {
     input,
-    output: {
-      file: 'dst/scheduler.min.js',
-      ...output
-    },
-    plugins: [
-      ...plugins,
-      terser()
-    ]
+    output: { ...output, file: 'dst/scheduler.min.js' },
+    plugins: [typescript(), builtins(), terser()]
   }
 ]

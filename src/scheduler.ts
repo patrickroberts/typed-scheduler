@@ -1,6 +1,8 @@
 import { EventEmitter } from 'events'
 import { PromiseCompletionSource, delay, once, race } from './utils'
-import { validator, assertType, assertInteger, assertMin, assertMax, assertArity } from './validators'
+import {
+  validator, assertType, assertInteger, assertMin, assertMax, assertArity
+} from './validators'
 
 /** @ignore */
 const validateConcurrency = validator<number>(
@@ -239,13 +241,12 @@ export default class Scheduler {
     await pcs
 
     const task = this.execute(fn, ...params)
-    const slot = task
-      .catch(() => {})
-      .then(async () => {
-        await this.rateLimit()
-        this.pending.delete(slot)
-        this.propertyChanged.emit('pending')
-      })
+    const dispose = async () => {
+      await this.rateLimit()
+      this.pending.delete(slot)
+      this.propertyChanged.emit('pending')
+    }
+    const slot = task.then(dispose, dispose)
 
     this.pending.add(slot)
     this.propertyChanged.emit('pending')

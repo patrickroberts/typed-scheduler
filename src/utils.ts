@@ -7,42 +7,29 @@ export class PromiseCompletionSource<T> extends Promise<T> {
   public reject: (reason?: any) => void
 
   constructor () {
-    let _resolve: (value?: T | PromiseLike<T>) => void = () => {}
-    let _reject: (reason?: any) => void = () => {}
+    const settle:
+      Partial<Pick<PromiseCompletionSource<T>, 'resolve' | 'reject'>> = {}
 
     super((resolve, reject) => {
-      _resolve = resolve
-      _reject = reject
+      settle.resolve = resolve
+      settle.reject = reject
     })
 
-    this.resolve = _resolve
-    this.reject = _reject
+    const { resolve, reject } =
+      settle as Pick<PromiseCompletionSource<T>, 'resolve' | 'reject'>
+
+    this.resolve = resolve
+    this.reject = reject
   }
 }
 
 export type PromiseCompletion<T> =
   (pcs?: PromiseCompletionSource<T>) => Promise<T>
 
-export interface Timers {
-  setTimeout (
-    callback: (...args: any[]) => void,
-    ms: number, ...args: any[]
-  ): any
-  clearTimeout (timeout: any): void
-  setInterval (
-    callback: (...args: any[]) => void,
-    ms: number, ...args: any[]
-  ): any
-  clearInterval (timeout: any): void
-}
-
-export function delay (
-  ms: number,
-  timers: Timers = global
-): PromiseCompletion<void> {
+export function delay (ms: number): PromiseCompletion<void> {
   return (pcs = new PromiseCompletionSource()) => {
-    const handle = timers.setTimeout(pcs.resolve, ms)
-    return pcs.finally(() => timers.clearTimeout(handle))
+    const handle = setTimeout(pcs.resolve, ms)
+    return pcs.finally(() => clearTimeout(handle))
   }
 }
 

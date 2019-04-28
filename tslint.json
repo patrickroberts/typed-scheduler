@@ -1,9 +1,5 @@
 {
   "extends": "tslint-config-standard",
-  "rules": {
-    "no-empty": [true, "allow-empty-functions"],
-    "one-variable-per-declaration": [true, "ignore-for-loop"]
-  },
   "linterOptions": {
     "exclude": [
       "node_modules/**"

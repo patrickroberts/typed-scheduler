@@ -923,51 +923,93 @@ img { max-width: 100%; }
 		<div class="tsd-panel tsd-typography">
 			<h1 id="typed-scheduler">typed-scheduler</h1>
 			<p>A Scheduler written in TypeScript for concurrency-limiting and rate-limiting</p>
-			<h2 id="docs-github-npm"><a href="https://patrickroberts.github.io/typed-scheduler">Docs</a> | <a href="https://github.com/patrickroberts/typed-scheduler">GitHub</a> | <a href="https://www.npmjs.com/package/typed-scheduler">npm</a></h2>
+			<h2 id="docs-github-npm-yarn"><a href="https://patrickroberts.github.io/typed-scheduler">Docs</a> | <a href="https://github.com/patrickroberts/typed-scheduler">GitHub</a> | <a href="https://www.npmjs.com/package/typed-scheduler">npm</a> | <a href="https://yarnpkg.com/en/package/typed-scheduler">Yarn</a></h2>
+			<p><a href="https://www.npmjs.com/package/typed-scheduler"><img src="https://img.shields.io/npm/v/typed-scheduler.svg" alt="version"></a> <a href="https://www.npmjs.com/package/typed-scheduler"><img src="https://img.shields.io/bundlephobia/min/typed-scheduler.svg" alt="npm bundle size"></a> <a href="https://github.com/patrickroberts/typed-scheduler/blob/master/package.json"><img src="https://img.shields.io/david/dev/patrickroberts/typed-scheduler.svg" alt="devDependencies"></a> <a href="https://github.com/patrickroberts/typed-scheduler/issues"><img src="https://img.shields.io/github/issues/patrickroberts/typed-scheduler.svg" alt="issues"></a> <a href="https://github.com/patrickroberts/typed-scheduler/blob/master/package.json"><img src="https://img.shields.io/node/v/typed-scheduler.svg" alt="node support"></a> <a href="https://standardjs.com"><img src="https://img.shields.io/badge/code_style-standard-brightgreen.svg" alt="code style"></a> <a href="https://github.com/patrickroberts/typed-scheduler/blob/master/LICENSE"><img src="https://img.shields.io/npm/l/typed-scheduler.svg" alt="license"></a></p>
+			<h2 id="table-of-contents">Table of Contents</h2>
+			<ul>
+				<li><a href="#installing">Installing</a><ul>
+						<li><a href="#npm">npm</a></li>
+						<li><a href="#yarn">Yarn</a></li>
+					</ul>
+				</li>
+				<li><a href="#importing">Importing</a><ul>
+						<li><a href="#es-module">ES Module</a></li>
+						<li><a href="#commonjs">CommonJS</a></li>
+						<li><a href="#browser-global">Browser Global</a></li>
+						<li><a href="#amd">AMD</a></li>
+					</ul>
+				</li>
+				<li><a href="#usage">Usage</a><ul>
+						<li><a href="#example">Example</a></li>
+						<li><a href="#priority"><code>priority</code></a></li>
+						<li><a href="#ready-and-idle"><code>ready()</code> and <code>idle()</code></a></li>
+						<li><a href="#concurrency-and-rate"><code>concurrency</code> and <code>rate</code></a></li>
+					</ul>
+				</li>
+				<li><a href="#api">API</a></li>
+				<li><a href="#license">License</a></li>
+			</ul>
 			<h2 id="installing">Installing</h2>
+			<h3 id="npm"><a href="https://www.npmjs.com/package/typed-scheduler">npm</a></h3>
 			<pre><code class="language-sh">$ npm i --save typed-scheduler</code></pre>
-			<h2 id="usage">Usage</h2>
-			<pre><code class="language-ts"><span class="hljs-keyword">import</span> Scheduler <span class="hljs-keyword">from</span> <span class="hljs-string">'typed-scheduler'</span>
+			<h3 id="yarn"><a href="https://yarnpkg.com/en/package/typed-scheduler">Yarn</a></h3>
+			<pre><code class="language-sh">$ yarn add typed-scheduler</code></pre>
+			<h2 id="importing">Importing</h2>
+			<p><code>typed-scheduler</code> is pre-bundled using the <a href="https://github.com/umdjs/umd">UMD</a> pattern to support the
+			following module formats.</p>
+			<h3 id="es-module"><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/import">ES Module</a></h3>
+			<pre><code class="language-js"><span class="hljs-keyword">import</span> Scheduler <span class="hljs-keyword">from</span> <span class="hljs-string">'typed-scheduler'</span></code></pre>
+			<h3 id="commonjs"><a href="https://nodejs.org/api/modules.html#modules_modules">CommonJS</a></h3>
+			<pre><code class="language-js"><span class="hljs-keyword">const</span> Scheduler = <span class="hljs-built_in">require</span>(<span class="hljs-string">'typed-scheduler'</span>)</code></pre>
+			<h3 id="browser-global"><a href="https://stackoverflow.com/questions/5647258/how-to-use-revealing-module-pattern-in-javascript">Browser Global</a></h3>
+			<pre><code class="language-html"><span class="hljs-tag">&lt;<span class="hljs-name">script</span> <span class="hljs-attr">src</span>=<span class="hljs-string">"https://unpkg.com/typed-scheduler"</span>&gt;</span><span class="undefined"></span><span class="hljs-tag">&lt;/<span class="hljs-name">script</span>&gt;</span></code></pre>
+			<h3 id="amd"><a href="https://requirejs.org/docs/whyamd.html#amd">AMD</a></h3>
+			<pre><code class="language-js">define([<span class="hljs-string">'typed-scheduler'</span>], <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">Scheduler</span>) </span>{
 
-<span class="hljs-comment">// rate limit to 2 messages every second</span>
+})</code></pre>
+			<h2 id="usage">Usage</h2>
+			<h3 id="example">Example</h3>
+			<pre><code class="language-js"><span class="hljs-comment">// rate limit to 2 messages every second</span>
 <span class="hljs-comment">// defaults to 3 priorities</span>
-<span class="hljs-keyword">const</span> scheduler = <span class="hljs-keyword">new</span> Scheduler({ concurrency: <span class="hljs-number">2</span>, rate: <span class="hljs-number">1000</span> })
+<span class="hljs-keyword">const</span> scheduler = <span class="hljs-keyword">new</span> Scheduler({ <span class="hljs-attr">concurrency</span>: <span class="hljs-number">2</span>, <span class="hljs-attr">rate</span>: <span class="hljs-number">1000</span> })
 
 <span class="hljs-comment">// queue 120 messages synchronously</span>
-<span class="hljs-comment">// scheduler will throttle to 2 messages / second</span>
+<span class="hljs-comment">// scheduler will throttle to 2 messages per second</span>
 <span class="hljs-keyword">for</span> (<span class="hljs-keyword">let</span> i = <span class="hljs-number">1</span>; i &lt;= <span class="hljs-number">120</span>; i++) {
   <span class="hljs-comment">// schedule with normal priority</span>
   scheduler.scheduleNormal(<span class="hljs-built_in">console</span>.log, <span class="hljs-string">`message <span class="hljs-subst">${i}</span>`</span>)
 }</code></pre>
-			<h3 id="priority">Priority</h3>
-			<p>The second argument of <code>schedule()</code> is used to set the priority class of the scheduled function. The scheduler will handle scheduled functions in FIFO order within each priority class, and higher priorities will always be handled before lower priorities. A lower value means a higher priority.</p>
+			<h3 id="priority"><code>priority</code></h3>
+			<p>The second argument of <code>schedule()</code> is used to set the priority class of the
+				scheduled function. The scheduler will handle scheduled functions in FIFO order
+				within each priority class, and higher priorities will always be handled before
+			lower priorities. A lower value means a higher priority.</p>
 			<h3 id="ready-and-idle-"><code>ready()</code> and <code>idle()</code></h3>
 			<p>The output of this program demonstrates when each of these methods resolves.</p>
-			<pre><code class="language-ts"><span class="hljs-keyword">import</span> { performance } <span class="hljs-keyword">from</span> <span class="hljs-string">'perf_hooks'</span>
-<span class="hljs-keyword">import</span> Scheduler <span class="hljs-keyword">from</span> <span class="hljs-string">'typed-scheduler'</span>
+			<pre><code class="language-js">import Scheduler from 'typed-scheduler'
 
-<span class="hljs-keyword">const</span> print = <span class="hljs-function">(<span class="hljs-params">...args</span>) =&gt;</span>
-  <span class="hljs-built_in">console</span>.log(<span class="hljs-string">`<span class="hljs-subst">${
-    (performance.now() / 1000).toFixed(3)
-  }</span>s`</span>, ...args)
-<span class="hljs-keyword">const</span> s = <span class="hljs-keyword">new</span> Scheduler({ concurrency: <span class="hljs-number">1</span>, rate: <span class="hljs-number">1000</span>, priorities: <span class="hljs-number">3</span> })
+function print (...args) {
+  console.log(`${(Date.now() / 1000).toFixed(3)}s`, ...args)
+}
 
-<span class="hljs-keyword">for</span> (<span class="hljs-keyword">let</span> i = <span class="hljs-number">0</span>; i &lt; <span class="hljs-number">3</span>; i++) {
-  <span class="hljs-keyword">for</span> (<span class="hljs-keyword">let</span> j = <span class="hljs-number">0</span>; j &lt; <span class="hljs-number">3</span>; j++) {
-    <span class="hljs-comment">// interleave priority classes</span>
-    s.schedule(
-      <span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span> print(<span class="hljs-string">'task'</span>, i * <span class="hljs-number">3</span> + j),
+const scheduler = new Scheduler({ concurrency: 1, rate: 1000, priorities: 3 })
+
+for (let i = 0; i &lt; 3; i++) {
+  for (let j = 0; j &lt; 3; j++) {
+    // interleave priority classes
+    scheduler.schedule(
+      () =&gt; print('task', i * 3 + j),
       j
     )
   }
 
-  s.ready(i).then(
-    <span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span> print(<span class="hljs-string">`priority <span class="hljs-subst">${i}</span> ready`</span>)
+  scheduler.ready(i).then(
+    () =&gt; print(`priority ${i} ready`)
   )
 }
 
-s.idle().then(
-  <span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span> print(<span class="hljs-string">'scheduler idle'</span>)
+scheduler.idle().then(
+  () =&gt; print('scheduler idle')
 )</code></pre>
 			<p>Output</p>
 			<pre><code><span class="hljs-number">0.079</span>s task <span class="hljs-number">0</span>
@@ -982,14 +1024,22 @@ s.idle().then(
 <span class="hljs-number">7.123</span>s task <span class="hljs-number">5</span>
 <span class="hljs-number">8.129</span>s task <span class="hljs-number">8</span>
 <span class="hljs-number">8.129</span>s priority <span class="hljs-number">2</span> ready
-<span class="hljs-number">9.135</span>s scheduler idle</code></pre><h3 id="concurrency-and-rate">Concurrency and Rate</h3>
+<span class="hljs-number">9.135</span>s scheduler idle</code></pre><h3 id="concurrency-and-rate"><code>concurrency</code> and <code>rate</code></h3>
 			<p>Note that the following schedulers do not behave identically.</p>
-			<pre><code class="language-ts"><span class="hljs-comment">// 2 tasks every second</span>
-<span class="hljs-keyword">new</span> Scheduler({ concurrency: <span class="hljs-number">2</span>, rate: <span class="hljs-number">1000</span> })
+			<pre><code class="language-js"><span class="hljs-comment">// 2 tasks every second</span>
+<span class="hljs-keyword">new</span> Scheduler({ <span class="hljs-attr">concurrency</span>: <span class="hljs-number">2</span>, <span class="hljs-attr">rate</span>: <span class="hljs-number">1000</span> })
 <span class="hljs-comment">// 1 task every half second</span>
-<span class="hljs-keyword">new</span> Scheduler({ concurrency: <span class="hljs-number">1</span>, rate: <span class="hljs-number">500</span> })</code></pre>
-			<p>The former will execute two tasks without delay, then wait a full second after either completes before executing another task.</p>
-			<p>The latter will only execute one task at a time, then wait for half a second after it completes before executing another task.</p>
+<span class="hljs-keyword">new</span> Scheduler({ <span class="hljs-attr">concurrency</span>: <span class="hljs-number">1</span>, <span class="hljs-attr">rate</span>: <span class="hljs-number">500</span> })</code></pre>
+			<p>Using the options <code>{ concurrency: 2, rate: 1000 }</code>, the scheduler will execute
+				two tasks without delay, then wait a full second after either completes before
+			executing another task.</p>
+			<p>Using <code>{ concurrency: 1, rate: 500 }</code> will only execute one task at a time,
+			then wait for half a second after it completes before executing another task.</p>
+			<h2 id="api"><a href="https://patrickroberts.github.io/typed-scheduler">API</a></h2>
+			<p>The complete reference API is available on <a href="https://patrickroberts.github.io/typed-scheduler">GitHub Pages</a>.</p>
+			<h2 id="license"><a href="https://github.com/patrickroberts/typed-scheduler/blob/master/LICENSE">License</a></h2>
+			<p>Copyright © 2019 Patrick Roberts</p>
+			<p>MIT License</p>
 		</div>
 		<div style="position:relative;"><a name="typedoc-main-index" class="tsd-anchor"></a></div>
 		<section class="tsd-panel-group tsd-index-group">
@@ -1025,7 +1075,7 @@ s.idle().then(
 				<div class="tsd-signature tsd-kind-icon">Task<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">function</span></div>
 				<aside class="tsd-sources">
 					<ul>
-						<li>Defined in <a href="https://github.com/patrickroberts/typed-scheduler/tree/master/src/scheduler.ts#L75">scheduler.ts:75</a></li>
+						<li>Defined in <a href="https://github.com/patrickroberts/typed-scheduler/tree/master/src/scheduler.ts#L77">scheduler.ts:77</a></li>
 					</ul>
 				</aside>
 				<div class="tsd-comment tsd-typography">

@@ -6,7 +6,9 @@ export function validator<V> (name: string, ...assertions: Assertion<V>[]) {
   }
 }
 
-type Typeof = 'string' | 'number' | 'bigint' | 'boolean' | 'symbol' | 'undefined' | 'object' | 'function'
+type Typeof =
+  'string' | 'number' | 'bigint' | 'boolean' |
+  'symbol' | 'undefined' | 'object' | 'function'
 
 export function assertType<V> (type: Typeof): Assertion<V> {
   const article = /^[aeiou]/.test(type) ? 'an' : 'a'
